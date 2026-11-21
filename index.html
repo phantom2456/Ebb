@@ -40,40 +40,116 @@ h3{font-size:22px;line-height:1.15;margin:4px 0 8px;font-weight:600;text-wrap:ba
 p{margin:0 0 10px}
 .mute{color:var(--mute)}.dim{color:var(--dim)}.overc{color:var(--over)}.aq{color:var(--aqua)}.warm{color:var(--warm)}
 .card{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-/* tank */
-.tank{position:relative;border-radius:28px;overflow:hidden;padding:20px 18px 16px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.25)),var(--s1);isolation:isolate}
-.water{position:absolute;inset:auto 0 0 0;height:74%;z-index:-1;background:linear-gradient(180deg,var(--w1),var(--w2));transition:background 1.2s}
-.water svg{position:absolute;left:0;top:-14px;width:200%;height:16px;animation:wave 7s linear infinite}
-.water svg path{fill:var(--w1)}
+/* hero tank */
+.tank{position:relative;margin:0 -6px;height:clamp(430px,calc(100svh - 262px - var(--safeB)),720px);border-radius:32px;overflow:hidden;border:1px solid rgba(255,255,255,.08);isolation:isolate;background:radial-gradient(130% 55% at 50% -8%,rgba(255,255,255,.18),transparent 60%),linear-gradient(180deg,var(--w1),var(--w2)),#06121a;box-shadow:0 30px 60px -34px rgba(0,0,0,.9),inset 0 0 90px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent;contain:layout paint}
+.rays{position:absolute;inset:-12% -25% 35%;z-index:0;pointer-events:none;background:repeating-linear-gradient(100deg,transparent 0 46px,rgba(255,255,255,.06) 46px 80px,transparent 80px 140px);-webkit-mask-image:linear-gradient(180deg,#000,transparent);mask-image:linear-gradient(180deg,#000,transparent);transform-origin:50% 0;animation:rays 16s ease-in-out infinite alternate}
+@keyframes rays{from{transform:skewX(-7deg) translateX(-24px);opacity:.65}to{transform:skewX(7deg) translateX(24px);opacity:1}}
+.mote{position:absolute;z-index:1;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.55);pointer-events:none;animation:drift var(--d) linear infinite;animation-delay:var(--dl);opacity:0}
+@keyframes drift{0%{transform:translate(0,0);opacity:0}15%{opacity:.8}100%{transform:translate(var(--dx),-140px);opacity:0}}
+.sand{position:absolute;left:0;right:0;bottom:0;height:13%;z-index:1;pointer-events:none}
+.rock{position:absolute;left:3%;bottom:6%;width:31%;max-width:140px;z-index:1;pointer-events:none}
+.weeds{position:absolute;right:4%;bottom:5%;width:19%;max-width:86px;z-index:1;pointer-events:none;overflow:visible}
+.weed{transform-box:fill-box;transform-origin:50% 100%;animation:weed 5.5s ease-in-out infinite alternate}.weed.w2{animation-duration:4.6s;animation-delay:-2s}.weed.w3{animation-duration:6.4s;animation-delay:-1s}
+@keyframes weed{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.bub{position:absolute;bottom:4%;width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);z-index:2;animation:rise 7s ease-in infinite;opacity:0;pointer-events:none}
+@keyframes rise{0%{transform:translateY(0);opacity:0}12%{opacity:.85}100%{transform:translate(10px,-420px);opacity:0}}
+.tank.m-wilt .bub,.tank.m-wary .bub:nth-child(odd){display:none}
+.haze{position:absolute;left:0;right:0;bottom:0;z-index:4;height:var(--hz);background:linear-gradient(180deg,var(--hzc),var(--hzc2));transition:height 1.4s cubic-bezier(.22,1,.36,1),background 1.2s;pointer-events:none}
+.haze svg{position:absolute;left:0;top:-13px;width:200%;height:14px;animation:wave 8s linear infinite}
+.haze svg path{fill:var(--hzc);transition:fill 1.2s}
 @keyframes wave{to{transform:translateX(-50%)}}
-.murk{position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity 1.2s;background:radial-gradient(3px 3px at 20% 60%,rgba(255,255,255,.18),transparent),radial-gradient(2px 2px at 70% 80%,rgba(255,255,255,.14),transparent),radial-gradient(3px 3px at 45% 90%,rgba(255,255,255,.12),transparent),radial-gradient(2px 2px at 85% 55%,rgba(255,255,255,.15),transparent),radial-gradient(2px 2px at 35% 72%,rgba(255,255,255,.16),transparent)}
-.tank.m-wilt .murk{opacity:1}
-.bub{position:absolute;bottom:-10px;width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.45);z-index:-1;animation:rise 6s ease-in infinite;opacity:0}
-@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-200px) translateX(8px);opacity:0}}
-.tank.m-wilt .bub,.tank.m-wary .bub{display:none}
-.tgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:8px;align-items:center}
+.limit{position:absolute;left:14px;right:14px;bottom:62%;z-index:4;border-top:1.5px dashed rgba(255,255,255,.32);pointer-events:none}
+.limit span{position:absolute;right:0;top:-19px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600}
+.stage{position:absolute;left:0;right:0;top:27%;bottom:13%;z-index:3;display:grid;place-items:center;pointer-events:none}
+.swim{position:relative;width:min(76%,330px);display:grid;place-items:center;animation:swim 19s ease-in-out infinite}
+@keyframes swim{0%,100%{transform:translate(0,0) rotate(0)}18%{transform:translate(-13%,-7%) rotate(-4deg)}40%{transform:translate(9%,-11%) rotate(3deg)}62%{transform:translate(14%,3%) rotate(5deg)}82%{transform:translate(-7%,6%) rotate(-2deg)}}
+.tank.m-wary .swim{animation-duration:26s}.tank.m-wilt .swim{animation-duration:38s}
+.aura{position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(closest-side,rgba(247,169,212,.42),rgba(123,224,211,.12) 62%,transparent);opacity:var(--au);transition:opacity 1.2s;z-index:-1}
+.act{position:relative;width:100%;pointer-events:auto;cursor:pointer;transform-origin:50% 62%;-webkit-tap-highlight-color:transparent}
+.act .lotl{max-width:none;display:block}
+.hud{position:absolute;left:0;right:0;top:0;z-index:5;padding:18px 18px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start;pointer-events:none;text-shadow:0 1px 14px rgba(0,0,0,.5)}
+.hud button{pointer-events:auto}
+.hud .big{font-size:clamp(58px,17vw,82px)}
+.hud .meter{max-width:230px}
+.tday{display:grid;justify-items:end;gap:8px}
+.chipg{padding:8px 12px;border-radius:16px;background:rgba(9,8,14,.42);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.09);text-align:right;line-height:1.15;text-shadow:none}
+.chipg b{font-family:"Instrument Serif",serif;font-weight:400;font-size:30px}
+.tday .pill{min-height:38px;padding:0 12px;font-size:14px;background:rgba(9,8,14,.42);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-color:rgba(255,255,255,.1);text-shadow:none}
+.moodline{position:absolute;left:14px;right:14px;bottom:14px;z-index:5;font-size:15px;font-weight:500;padding:11px 14px;border-radius:16px;background:rgba(9,8,14,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);pointer-events:none;transition:opacity .4s}
+.glass{position:absolute;inset:0;z-index:7;pointer-events:none;border-radius:inherit;background:linear-gradient(115deg,rgba(255,255,255,.08),transparent 26%,transparent 72%,rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+.tank.paused *,.tank.paused{animation-play-state:paused!important}
 .lbl{font-size:14px;color:var(--mute);font-weight:500}
 .big{font-size:clamp(64px,19vw,88px);line-height:.9}
 .big small{font-size:.38em;color:var(--mute);font-family:"Inter Tight",sans-serif;font-weight:500;margin-left:4px;letter-spacing:0}
-.meter{position:relative;height:10px;border-radius:6px;background:rgba(255,255,255,.08);margin:12px 0 8px;overflow:visible}
-.meter b{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--aqua);transition:width .6s}
+.meter{position:relative;height:10px;border-radius:6px;background:rgba(255,255,255,.1);margin:12px 0 8px;overflow:visible}
+.meter b{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--aqua);transition:width .9s cubic-bezier(.22,1,.36,1)}
 .meter b.over{background:linear-gradient(90deg,var(--aqua) var(--lim),var(--over) var(--lim))}
 .meter i{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.7;border-radius:2px}
-.tline{font-size:14px;color:var(--mute)}
-.moodline{margin-top:14px;font-size:15px;font-weight:500;padding:10px 12px;border-radius:14px;background:rgba(11,10,16,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.lotl{width:100%;max-width:190px;justify-self:center;overflow:visible;animation:bob 3.8s ease-in-out infinite;transition:filter 1s}
-@keyframes bob{50%{transform:translateY(-7px) rotate(-2deg)}}
-.lotl .gl{transform-box:view-box;transform-origin:52px 54px;animation:sway 2.6s ease-in-out infinite;transition:transform 1s}
-@keyframes sway{50%{transform:rotate(-7deg)}}
-.lotl.m-glow,.lotl.m-proud{filter:drop-shadow(0 0 16px rgba(247,169,212,.55)) drop-shadow(0 0 40px rgba(123,224,211,.25))}
-.lotl.m-proud{filter:drop-shadow(0 0 22px rgba(247,169,212,.8)) drop-shadow(0 0 48px rgba(123,224,211,.35))}
-.lotl.m-ok{filter:drop-shadow(0 0 10px rgba(247,169,212,.35))}
-.lotl.m-wary{filter:saturate(.8)}
-.lotl.m-wary .gl{animation:none;transform:rotate(14deg)}
-.lotl.m-wilt{filter:saturate(.45) brightness(.8);animation-duration:6s}
-.lotl.m-wilt .gl{animation:none;transform:rotate(30deg)}
+.tline{font-size:14px;color:rgba(243,239,247,.78)}
+/* Lotl */
+.lotl{width:100%;max-width:190px;overflow:visible;animation:bob 3.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.lotl .gill{transform-box:view-box;animation:gill 2.8s ease-in-out infinite}
+@keyframes gill{50%{transform:rotate(-9deg)}}
+.lotl .tail{transform-box:view-box;transform-origin:150px 152px;animation:tail 2.4s ease-in-out infinite}
+@keyframes tail{50%{transform:rotate(10deg)}}
+.lotl .lid{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(0);animation:blink 5.4s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
+.lotl .arm-r{transform-box:view-box;transform-origin:154px 158px}
+.lotl.m-wary .gill{animation-duration:4.5s}
+.lotl.m-wilt{animation-duration:6s}.lotl.m-wilt .gill{animation:none;transform:rotate(24deg)}.lotl.m-wilt .tail{animation-duration:5s}
+.lotl.m-wilt .lid{animation:none;transform:scaleY(.5)}
 .spark{opacity:0}.m-proud .spark{opacity:1;animation:tw 1.8s ease-in-out infinite}
 @keyframes tw{50%{opacity:.2}}
+/* antics */
+.act[data-a=flip]{animation:aFlip 1.4s cubic-bezier(.45,0,.2,1)}
+@keyframes aFlip{0%{transform:none}25%{transform:translateY(-26px) rotate(-25deg)}75%{transform:translateY(-18px) rotate(-335deg)}100%{transform:rotate(-360deg)}}
+.act[data-a=hop]{animation:aHop .75s cubic-bezier(.3,1.6,.5,1)}
+@keyframes aHop{40%{transform:translateY(-30px) scale(1.06,.94)}75%{transform:translateY(4px) scale(.95,1.05)}}
+.act[data-a=flinch]{animation:aFlinch 1s ease}
+@keyframes aFlinch{12%{transform:translateX(-7px) scale(.94)}26%{transform:translateX(7px) scale(.94)}40%{transform:translateX(-4px) scale(.96)}60%,80%{transform:translateY(12px) scale(.97) rotate(4deg)}}
+.act[data-a=peek]{animation:aPeek 2.3s cubic-bezier(.45,0,.2,1)}
+@keyframes aPeek{30%,72%{transform:translateY(-5%) scale(1.42,1.3)}42%,60%{transform:translateY(-5%) scale(1.52,1.24)}}
+.act[data-a=chase]{animation:aChase 2s ease-in-out}
+@keyframes aChase{45%{transform:translate(20%,-24%) rotate(14deg)}58%{transform:translate(22%,-26%) rotate(8deg) scale(1.06)}}
+.act[data-a=shimmy]{animation:aShim 1.2s ease-in-out}
+@keyframes aShim{15%,45%,75%{transform:rotate(-10deg) scale(1.03)}30%,60%,90%{transform:rotate(10deg) scale(1.03)}}
+.act[data-a=nap]{animation:aNap 5.2s ease-in-out}
+@keyframes aNap{15%,85%{transform:translateY(24%) rotate(-7deg) scale(.96)}}
+.act[data-a=nap] .lid,.act[data-a=sigh] .lid{animation:none;transform:scaleY(1)}
+.act[data-a=nap] .gill{animation-duration:6s}
+.act[data-a=giggle]{animation:aGig .9s cubic-bezier(.3,1.5,.5,1)}
+@keyframes aGig{20%{transform:scale(1.14,.86)}45%{transform:scale(.9,1.12)}70%{transform:scale(1.05,.96)}}
+.act[data-a=pebble]{animation:aPeb 2.3s ease-in-out}
+@keyframes aPeb{30%{transform:translate(-12%,16%) rotate(-16deg)}48%{transform:translate(-14%,18%) rotate(-22deg)}56%{transform:translate(-9%,13%) rotate(-6deg)}}
+.act[data-a=wave] .arm-r{animation:aWave .38s ease-in-out 4 alternate}
+@keyframes aWave{to{transform:rotate(-48deg)}}
+.act[data-a=wave]{animation:aTilt 1.6s ease-in-out}
+@keyframes aTilt{30%,70%{transform:rotate(-6deg)}}
+.act[data-a=sigh]{animation:aSigh 2.6s ease-in-out}
+@keyframes aSigh{40%,70%{transform:translateY(8%) scale(1.04,.96)}}
+.act[data-a=tilt]{animation:aTilt2 1.2s ease-in-out}
+@keyframes aTilt2{30%,70%{transform:rotate(12deg) translateX(4%)}}
+.fx{position:absolute;z-index:6;left:var(--x);top:var(--y);pointer-events:none}
+.fx.b{width:16px;height:16px;margin:-8px;border-radius:50%;border:2px solid rgba(255,255,255,.75);background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.6),transparent 60%);animation:fxUp var(--t,1.6s) ease-out forwards}
+@keyframes fxUp{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:1;transform:translate(0,-6px) scale(1)}100%{transform:translate(var(--dx,0),-110px) scale(1.1);opacity:0}}
+.fx.bh{animation:fxHover 1.2s ease-in-out forwards}
+@keyframes fxHover{0%{transform:scale(.3);opacity:0}25%{transform:scale(1);opacity:1}100%{transform:translate(4px,-10px) scale(1)}}
+.fx.pop{animation:fxPop .32s ease-out forwards}
+@keyframes fxPop{to{transform:scale(2.2);opacity:0}}
+.fx.h{width:18px;height:18px;margin:-9px;animation:fxUp 1.5s ease-out forwards}
+.fx.h svg{width:100%;height:100%;fill:var(--gill)}
+.fx.z{font:italic 600 22px "Instrument Serif",serif;color:rgba(255,255,255,.85);animation:fxZ 2s ease-out forwards}
+@keyframes fxZ{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translate(26px,-70px) scale(1.3)}}
+.fx.p{width:16px;height:11px;margin:-6px -8px;border-radius:50% 50% 45% 45%;background:linear-gradient(#ddd3e8,#8c839a);animation:fxRoll 2.4s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes fxRoll{0%{opacity:0;transform:none}10%{opacity:1}35%{transform:none}100%{opacity:1;transform:translateX(var(--dx)) rotate(560deg)}}
+.fx.c{width:8px;height:10px;border-radius:2px;background:var(--c);animation:fxBurst 1.7s cubic-bezier(.15,.8,.3,1) forwards}
+@keyframes fxBurst{0%{transform:translate(0,0) scale(.4);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
+.fx.r{width:20px;height:20px;margin:-10px;border-radius:50%;border:2px solid rgba(255,255,255,.6);animation:fxRing .9s ease-out forwards}
+@keyframes fxRing{0%{transform:scale(.3);opacity:.9}100%{transform:scale(5);opacity:0}}
+.cele{position:absolute;left:50%;top:40%;z-index:8;max-width:82%;padding:11px 16px;border-radius:16px;background:rgba(9,8,14,.66);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(123,224,211,.35);font-weight:600;text-align:center;pointer-events:none;animation:cele 4s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes cele{0%{opacity:0;transform:translate(-50%,14px) scale(.9)}12%,82%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-10px) scale(.98)}}
+@media (prefers-reduced-motion:reduce){.tank *,.lotl,.lotl *{animation:none!important}.lotl.m-wilt .lid{transform:scaleY(.5)}.haze,.meter b{transition:none}}
 /* sections */
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .today{margin-top:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
@@ -89,11 +165,33 @@ p{margin:0 0 10px}
 .tile span{font-size:13px;font-weight:600;text-align:center;line-height:1.15}
 .tile em{font-style:normal;font-size:12px;color:var(--mute)}
 .tile.pop{animation:pop .5s}
-@keyframes pop{30%{transform:scale(1.08);background:var(--s3)}}
+@keyframes pop{0%{transform:scale(.9)}35%{transform:scale(1.1);background:var(--s3)}70%{transform:scale(.97)}100%{transform:none}}
+.tile .rip{position:absolute;left:var(--x);top:var(--y);width:16px;height:16px;margin:-8px;border-radius:50%;background:rgba(123,224,211,.45);pointer-events:none;animation:rip .6s ease-out forwards}
+@keyframes rip{to{transform:scale(12);opacity:0}}
+.tile{overflow:hidden;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .2s}
+.tile:active{transform:scale(.92);transition-duration:.08s}
+.qh{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 8px}.qh b{font-size:17px}.qh span{font-size:12px;color:var(--dim)}
+.qrow{display:flex;gap:8px;align-items:stretch}
+.qs{flex:1;min-width:0;display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);padding-right:24px}
+.qs::-webkit-scrollbar{display:none}
+.qs .tile{flex:none;width:94px;min-height:78px;padding:9px 6px 7px;scroll-snap-align:start}
+.qs .tile svg{width:24px;height:24px}
+.qmore{flex:none;width:58px;border-radius:18px;background:var(--s2);border:1px solid var(--line);display:grid;place-content:center;justify-items:center;gap:2px;font-size:12px;font-weight:600;color:var(--mute);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.qmore:active{transform:scale(.92);transition-duration:.08s}
+.qmore svg{width:22px;height:22px;color:var(--aqua)}
+.qty{display:grid;grid-template-columns:auto 44px minmax(0,1fr) 44px;gap:6px;align-items:center}
+.qty .pill{padding:0 12px;min-height:44px;font-size:18px}.qty .pill.h{font-size:14px}
+.qty input{text-align:center}
 .hint{font-size:13px;color:var(--dim);margin-top:8px}
 .log{list-style:none;margin:0;padding:0}
-.log li{border-bottom:1px solid var(--line)}
-.log li>button{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;min-height:56px;padding:10px 4px;text-align:left;border-radius:12px}
+.log li{border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.log li::before{content:"Delete";position:absolute;inset:1px 0;border-radius:12px;display:flex;align-items:center;justify-content:flex-end;padding-right:18px;background:rgba(255,93,99,.25);color:#fff;font-weight:600;font-size:14px;opacity:0;transition:opacity .15s,background .15s}
+.log li.swp::before{opacity:1}.log li.sw::before{background:var(--over)}
+.log li>button{position:relative;touch-action:pan-y;transition:transform .35s cubic-bezier(.22,1,.36,1),background .2s;background:var(--bg)}
+details .log li>button{background:var(--s1)}
+.log .ed{width:16px;height:16px;color:var(--dim)}
+.log li>button:active{background:var(--s2)}
+.log li>button{display:grid;grid-template-columns:52px minmax(0,1fr) auto 16px;gap:10px;align-items:center;width:100%;min-height:56px;padding:10px 4px;text-align:left;border-radius:12px}
 .log li:last-child{border-bottom:0}
 .log time{color:var(--mute);font-size:14px;white-space:nowrap}
 .log .n{font-weight:600}
@@ -216,6 +314,27 @@ summary{min-height:44px;display:flex;align-items:center;font-weight:600;cursor:p
 .splash{display:grid;place-items:center;min-height:70vh;color:var(--mute)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (max-width:370px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tgrid{grid-template-columns:1fr 110px}}
+
+/* app-wide motion */
+.app.vin>*{animation:vin .55s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--k,0)*40ms)}
+@keyframes vin{from{opacity:0;transform:translateY(12px)}}
+.app.vin .log li{animation:vin .5s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(160ms + var(--i,0)*45ms)}
+.app.vin .bar b{transform-origin:0 50%;animation:grow .9s cubic-bezier(.22,1,.36,1) both}
+.app.vin .day:nth-child(2) .bar b{animation-delay:.05s}.app.vin .day:nth-child(3) .bar b{animation-delay:.1s}.app.vin .day:nth-child(4) .bar b{animation-delay:.15s}.app.vin .day:nth-child(5) .bar b{animation-delay:.2s}.app.vin .day:nth-child(6) .bar b{animation-delay:.25s}.app.vin .day:nth-child(7) .bar b{animation-delay:.3s}
+@keyframes grow{from{transform:scaleX(0)}}
+.app.vin .lvbar b{transform-origin:0 50%;animation:grow 1.1s .2s cubic-bezier(.22,1,.36,1) both}
+.tabs a svg{transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.tabs a:active svg{transform:scale(.85)}
+.tabs a[aria-current=page] svg{animation:tabpop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tabpop{40%{transform:scale(1.22) translateY(-2px)}}
+.pill,.stat,.crave{transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .2s}
+.pill:active,.crave:active{transform:scale(.96);transition-duration:.08s}
+.sheet{transition:transform .5s cubic-bezier(.22,1.08,.36,1)!important}
+.sheet .grab{width:44px;height:5px;margin:0 auto 12px;box-shadow:0 0 0 14px transparent}
+.toast{transition:opacity .25s,transform .45s cubic-bezier(.34,1.56,.64,1)!important}
+.liver *{transition:opacity .7s,stop-color .7s,transform .9s cubic-bezier(.22,1,.36,1)}
+.hold.soft{border-color:rgba(255,176,138,.5);color:var(--warm)}.hold.soft .f{background:rgba(255,176,138,.22)}
+@media (prefers-reduced-motion:reduce){.app.vin>*,.app.vin .log li,.app.vin .bar b,.app.vin .lvbar b,.tabs a[aria-current=page] svg{animation:none!important}.sheet,.toast,.liver *{transition:none!important}}
 </style>
 </head>
 <body>
@@ -346,20 +465,34 @@ function waterColors(r){const stops=[[0,[123,224,211]],[.7,[110,170,220]],[1,[19
 
 /* ---------- Lotl the axolotl ---------- */
 let lid=0;
-function lotl(m,cls=''){const g='lg'+(++lid);
- const eyes={glow:'<circle cx="66" cy="54" r="4.6" fill="#2a1830"/><circle cx="94" cy="54" r="4.6" fill="#2a1830"/><circle cx="67.6" cy="52.4" r="1.5" fill="#fff"/><circle cx="95.6" cy="52.4" r="1.5" fill="#fff"/>',
-  proud:'<path d="M61 56q5-7 10 0M89 56q5-7 10 0" stroke="#2a1830" stroke-width="3" fill="none" stroke-linecap="round"/>',
-  wary:'<circle cx="66" cy="55" r="3.8" fill="#2a1830"/><circle cx="94" cy="55" r="3.8" fill="#2a1830"/><path d="M60 46l9 2M100 46l-9 2" stroke="#2a1830" stroke-width="2.4" stroke-linecap="round"/>',
-  wilt:'<path d="M61 55q5 4 10 0M89 55q5 4 10 0" stroke="#2a1830" stroke-width="3" fill="none" stroke-linecap="round"/>'};
- eyes.ok=eyes.glow;
- const mouth={glow:'<path d="M73 66q7 7 14 0" stroke="#2a1830" stroke-width="2.6" fill="none" stroke-linecap="round"/>',proud:'<path d="M72 65q8 10 16 0z" fill="#2a1830"/><path d="M76 68q4 3 8 0" fill="#ff7ab8"/>',ok:'<path d="M75 67q5 4 10 0" stroke="#2a1830" stroke-width="2.6" fill="none" stroke-linecap="round"/>',wary:'<path d="M75 69q5-2 10 0" stroke="#2a1830" stroke-width="2.6" fill="none" stroke-linecap="round"/>',wilt:'<path d="M75 70q5-4 10 0" stroke="#2a1830" stroke-width="2.6" fill="none" stroke-linecap="round"/>'};
- const gill='<g class="gl" stroke="var(--gill)" stroke-width="5.5" stroke-linecap="round" fill="none"><path d="M50 44Q38 33 28 22"/><path d="M47 54Q32 50 17 45"/><path d="M49 64Q36 70 23 77"/><path d="M40 35l-7 1M34 29l-6 0M36 51l-5 5M26 48l-5 5M38 68l-3 6M30 72l-2 6" stroke-width="3.6"/></g>';
- return `<svg class="lotl m-${m} ${cls}" viewBox="0 0 160 120" role="img" aria-label="Lotl the axolotl, ${({glow:'glowing',proud:'proud',ok:'content',wary:'a little worried',wilt:'wilted'})[m]}"><defs><radialGradient id="${g}" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#ffe0f0"/><stop offset="1" stop-color="#f29acb"/></radialGradient></defs>
- <path d="M104 92c18 2 36-6 46-20-3 18-22 32-48 30z" fill="#e98bbf"/><ellipse cx="80" cy="94" rx="30" ry="17" fill="url(#${g})"/><ellipse cx="58" cy="105" rx="7" ry="5" fill="#e98bbf"/><ellipse cx="102" cy="105" rx="7" ry="5" fill="#e98bbf"/>
- ${gill}<g transform="translate(160 0) scale(-1 1)">${gill}</g>
- <ellipse cx="80" cy="57" rx="35" ry="28" fill="url(#${g})"/><ellipse cx="56" cy="65" rx="6" ry="3.5" fill="#ff7ab8" opacity=".45"/><ellipse cx="104" cy="65" rx="6" ry="3.5" fill="#ff7ab8" opacity=".45"/>
- ${eyes[m]}${mouth[m]}
- <g class="spark" fill="#c9fff6"><path d="M134 18l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/><path d="M22 92l1.4 4 4 1.4-4 1.4-1.4 4-1.4-4-4-1.4 4-1.4z"/></g></svg>`}
+const PAL={n:['#ffe4f2','#f5a6d1','#e283b8','#f7b2d6','#e889bd'],w:['#eedbe5','#d6aac0','#b98aa3','#dcb4c8','#c493ad']};
+function lotl(m,cls='',gid){const g=gid||'lg'+(++lid),P=m==='wilt'?PAL.w:PAL.n;
+ const fr=(d,f,o,dl)=>`<g class="gill" style="transform-origin:${o};animation-delay:${dl}s"><path d="${d}" stroke="var(--gill)" stroke-width="6.5" stroke-linecap="round" fill="none"/><path d="${f}" stroke="#ff9fcd" stroke-width="3.4" stroke-linecap="round" fill="none"/></g>`;
+ const gills=fr('M74 74Q58 56 46 36','M65 63l-9 2M58 54l-9 0M52 45l-8-2M66 62l-1-9M59 53l-1-9','74px 78px',0)+fr('M68 90Q48 86 26 80','M57 87l-3 8M47 85l-3 8M37 82l-3 8M56 86l1-8M45 84l1-8','70px 90px',.25)+fr('M72 106Q54 116 34 128','M62 111l1 8M53 116l1 8M44 121l1 8M61 110l-6-5M51 116l-6-5','72px 104px',.5);
+ return `<svg class="lotl m-${m} ${cls}" viewBox="0 0 240 200" role="img" aria-label="Lotl the axolotl, ${({glow:'glowing',proud:'proud',ok:'content',wary:'a little worried',wilt:'sleepy and droopy'})[m]}"><defs><radialGradient id="${g}" cx="42%" cy="28%" r="78%"><stop offset="0" stop-color="${P[0]}"/><stop offset=".55" stop-color="${P[1]}"/><stop offset="1" stop-color="${P[2]}"/></radialGradient></defs>
+ <g class="tail"><path d="M148 150C178 148 206 130 224 104C229 126 216 152 190 165C175 173 158 171 146 166Z" fill="${P[4]}"/><path d="M160 153C184 147 205 132 219 112" stroke="#ffd6ea" stroke-width="2" fill="none" opacity=".55"/></g>
+ <ellipse cx="84" cy="174" rx="14" ry="8" fill="${P[4]}"/><ellipse cx="156" cy="174" rx="14" ry="8" fill="${P[4]}"/>
+ <ellipse cx="120" cy="150" rx="52" ry="31" fill="url(#${g})"/><ellipse cx="120" cy="161" rx="33" ry="15" fill="#fff2f9" opacity=".55"/>
+ <g class="arm-l"><path d="M88 156Q78 167 76 179" stroke="${P[4]}" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="70" cy="182" r="3.3" fill="${P[4]}"/><circle cx="76" cy="184.5" r="3.3" fill="${P[4]}"/><circle cx="82" cy="183" r="3.3" fill="${P[4]}"/></g>
+ <g class="arm-r"><path d="M152 156Q162 167 164 179" stroke="${P[4]}" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="158" cy="183" r="3.3" fill="${P[4]}"/><circle cx="164" cy="184.5" r="3.3" fill="${P[4]}"/><circle cx="170" cy="182" r="3.3" fill="${P[4]}"/></g>
+ ${gills}<g transform="translate(240 0) scale(-1 1)">${gills}</g>
+ <ellipse cx="120" cy="96" rx="61" ry="47" fill="url(#${g})"/>
+ <ellipse cx="102" cy="68" rx="27" ry="10" fill="#fff" opacity=".38" transform="rotate(-12 102 68)"/>
+ <g fill="#cf5f9c" opacity=".28"><circle cx="152" cy="74" r="3"/><circle cx="164" cy="84" r="2"/><circle cx="84" cy="116" r="2.4"/><circle cx="160" cy="122" r="2"/><circle cx="138" cy="142" r="2.6"/><circle cx="100" cy="146" r="2"/></g>
+ <g class="face">${lotlFace(m,P)}</g></svg>`}
+function lotlFace(m,P){const D='#2a1830';
+ const lids=`<ellipse class="lid" cx="96" cy="96" rx="11.5" ry="11.5" fill="${P[3]}"/><ellipse class="lid" cx="144" cy="96" rx="11.5" ry="11.5" fill="${P[3]}"/>`;
+ const round=r=>`<circle cx="96" cy="96" r="${r}" fill="${D}"/><circle cx="144" cy="96" r="${r}" fill="${D}"/><circle cx="99.5" cy="92" r="3.4" fill="#fff"/><circle cx="147.5" cy="92" r="3.4" fill="#fff"/><circle cx="93.5" cy="99.5" r="1.5" fill="#fff" opacity=".7"/><circle cx="141.5" cy="99.5" r="1.5" fill="#fff" opacity=".7"/>`;
+ const eyes={glow:round(10)+lids,ok:round(9.5)+lids,
+  proud:`<path d="M85 99q11-14 22 0M133 99q11-14 22 0" stroke="${D}" stroke-width="4.2" fill="none" stroke-linecap="round"/>`,
+  wary:round(8.5)+lids+`<path d="M83 80l17 4M157 80l-17 4" stroke="${D}" stroke-width="3" stroke-linecap="round"/>`,
+  wilt:round(8.5)+lids+`<path d="M84 86l15-5M156 86l-15-5" stroke="${D}" stroke-width="3" stroke-linecap="round"/>`};
+ const mouth={glow:`<path d="M109 114q11 11 22 0" stroke="${D}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`,
+  proud:`<path d="M107 111q13 18 26 0z" fill="${D}"/><path d="M113 117q7 5 14 0" fill="#ff7ab8"/>`,
+  ok:`<path d="M112 115q8 6 16 0" stroke="${D}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`,
+  wary:`<path d="M112 119q8-3 16 0" stroke="${D}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`,
+  wilt:`<path d="M112 121q8-7 16 0" stroke="${D}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`};
+ return `${eyes[m]}<ellipse cx="79" cy="113" rx="11" ry="6" fill="#ff7ab8" opacity="${m==='wilt'?.2:.45}"/><ellipse cx="161" cy="113" rx="11" ry="6" fill="#ff7ab8" opacity="${m==='wilt'?.2:.45}"/>${mouth[m]}<g class="spark" fill="#c9fff6"><path d="M206 30l2.5 7 7 2.5-7 2.5-2.5 7-2.5-7-7-2.5 7-2.5z"/><path d="M30 150l1.8 5 5 1.8-5 1.8-1.8 5-1.8-5-5-1.8 5-1.8z"/><path d="M200 150l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></g>`}
 
 /* ---------- copy ---------- */
 const COPY={
@@ -373,20 +506,39 @@ const fillT=(s,o)=>s.replace(/\{(\w+)\}/g,(_,k)=>o[k]??'');
 /* ---------- views ---------- */
 let view='today';
 function header(){const d=new Date();return `<div class="top"><div class="brand"><i></i>Ebb</div><div class="date">${d.toLocaleDateString([],{weekday:'long',month:'short',day:'numeric'})}</div></div>`}
-function tank(s){const m=mood(s),[w1,w2]=waterColors(s.r),st=S.settings;const pct=Math.min(100,s.wStd/Math.max(st.weekly*1.35,s.wStd||1,.01)*100),lim=Math.min(100,st.weekly/Math.max(st.weekly*1.35,s.wStd)*100);
- const bubs=[12,30,48,66,84].map((l,i)=>`<i class="bub" style="left:${l}%;animation-delay:${i*1.3}s"></i>`).join('');
- const over=s.wStd>st.weekly+1e-6;
- return `<section class="tank m-${m}" style="--w1:${w1};--w2:${w2}" aria-label="This week"><div class="water"><svg viewBox="0 0 400 16" preserveAspectRatio="none"><path d="M0 8Q50 0 100 8T200 8T300 8T400 8V16H0z"/></svg></div><div class="murk"></div>${bubs}
- <div class="tgrid"><div><div class="lbl">This week</div><div class="big num ${over?'overc':''}">${f1(s.wStd)}<small>/ ${st.weekly}</small></div>
+const PEN='<svg class="ed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>';
+function hazeColors(r){return r>1+1e-6?['rgba(255,93,99,.30)','rgba(120,30,50,.55)']:r>.85?['rgba(214,140,190,.28)','rgba(110,60,110,.5)']:['rgba(176,140,220,.22)','rgba(70,50,120,.45)']}
+const MOTES=Array.from({length:12},(_,i)=>`<i class="mote" style="left:${(i*37+11)%96}%;top:${40+(i*23)%55}%;--d:${9+(i*7)%8}s;--dl:-${(i*1.7).toFixed(1)}s;--dx:${(i%3-1)*18}px"></i>`).join('')+[12,30,52,70,86].map((l,i)=>`<i class="bub" style="left:${l}%;animation-delay:${i*1.4}s"></i>`).join('');
+const SCENE=`<div class="rays"></div>${MOTES}
+ <svg class="sand" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20Q60 6 130 16T260 14T400 18V60H0Z" fill="#2b2434"/><path d="M0 30Q80 18 170 28T400 26V60H0Z" fill="#211c2a"/><g fill="#3b3348"><ellipse cx="190" cy="36" rx="7" ry="3"/><ellipse cx="240" cy="40" rx="5" ry="2.4"/><ellipse cx="300" cy="34" rx="6" ry="2.6"/></g></svg>
+ <svg class="rock" viewBox="0 0 120 70" aria-hidden="true"><path d="M6 68C2 40 26 16 58 14C90 12 114 34 116 68Z" fill="#3a3346"/><path d="M22 42C34 26 52 21 72 23" stroke="#51486a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M80 60c6-8 16-10 24-6" stroke="#2f8f7a" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+ <svg class="weeds" viewBox="0 0 80 160" aria-hidden="true"><path class="weed" d="M20 160C10 120 34 100 22 60C14 34 28 20 24 4" stroke="#2f8f7a" stroke-width="7" fill="none" stroke-linecap="round"/><path class="weed w2" d="M44 160C54 128 34 104 46 76C54 56 44 40 50 24" stroke="#3fae93" stroke-width="6" fill="none" stroke-linecap="round"/><path class="weed w3" d="M64 160C58 136 72 120 64 98" stroke="#26786a" stroke-width="6" fill="none" stroke-linecap="round"/></svg>`;
+function tank(s){const m=mood(s),[w1,w2]=waterColors(s.r),st=S.settings,[h1,h2]=hazeColors(s.r);
+ const pct=Math.min(100,s.wStd/Math.max(st.weekly*1.35,s.wStd||1,.01)*100),lim=Math.min(100,st.weekly/Math.max(st.weekly*1.35,s.wStd)*100);
+ const over=s.wStd>st.weekly+1e-6,hz=Math.min(74,Math.max(0,s.r)*62),au={proud:1,glow:.85,ok:.5,wary:.22,wilt:0}[m];
+ const tCal=Math.round(sum(s.today,'cal')),tThc=sum(TH().filter(x=>x.t>=s.ds),'mg'),n=activeNight();
+ return `<section class="tank m-${m}" id="hero" style="--w1:${w1};--w2:${w2};--hz:${hz.toFixed(1)}%;--hzc:${h1};--hzc2:${h2};--au:${au}" aria-label="This week">${SCENE}
+ <div class="stage"><div class="swim"><div class="aura"></div><div class="act" data-act="lotlTap" role="button" tabindex="0" aria-label="Play with Lotl">${lotl(m,'','lgHero')}</div></div></div>
+ <div class="haze"><svg viewBox="0 0 400 16" preserveAspectRatio="none"><path d="M0 8Q50 0 100 8T200 8T300 8T400 8V16H0z"/></svg></div>
+ <div class="limit"><span>your limit</span></div>
+ <div class="hud"><div><div class="lbl">This week</div><div class="big num ${over?'overc':''}"><span data-count="${s.wStd}">${f1(s.wStd)}</span><small>/ ${st.weekly}</small></div>
  <div class="meter" role="img" aria-label="${f1(s.wStd)} of ${st.weekly} standard drinks"><b class="${over?'over':''}" style="width:${pct}%;--lim:${pct?lim/pct*100:0}%"></b><i style="left:calc(${lim}% - 1px)"></i></div>
  <div class="tline">${over?`<span class="overc">${f1(s.oStd)} over · ${Math.round(s.oCal)} extra cal</span>`:`${f1(Math.max(0,s.left))} left · ${Math.round(s.wCal).toLocaleString()} cal`}<span style="display:block;white-space:nowrap">${s.dry>=st.dryTarget&&st.dryTarget>0?'dry-day target met':`dry days ${s.dry} of ${st.dryTarget}`}</span></div></div>
- ${lotl(m)}</div><div class="moodline">${esc(moodLine(m,s))}</div></section>`}
+ <div class="tday"><div class="chipg"><div class="lbl">Today</div><b data-count="${s.tStd}">${f1(s.tStd)}</b><span class="mute"> / ${st.daily}</span>${s.tStd>0||tThc?`<div class="mute" style="font-size:12px">${s.tStd>0?tCal+' cal':''}${s.tStd>0&&tThc?' · ':''}${tThc?f1(tThc)+' mg THC':''}</div>`:''}</div>${n?'':`<button class="pill" data-act="planNight">${moon()}Going out?</button>`}</div></div>
+ <div class="moodline">${esc(moodLine(m,s))}</div><div class="glass"></div></section>`}
+function quickRow(){const used={},cut=now()-60*DAY;for(const x of ALL())if(x.t>cut)used[x.pid]=(used[x.pid]||0)+1;
+ const it=allP().map((p,i)=>({p,i,c:used[p.id]||0}));it.push({thc:1,i:50,c:used.thc||0});const key=o=>o.thc?'thc':o.p.id;if(qOrder&&it.every(o=>qOrder.includes(key(o))))it.sort((a,b)=>qOrder.indexOf(key(a))-qOrder.indexOf(key(b)));else{it.sort((a,b)=>b.c-a.c||a.i-b.i);qOrder=it.map(key)}
+ return `<div class="qh"><b>Log a drink</b><span>Hold to adjust</span></div><div class="qrow"><div class="qs">${it.map(o=>o.thc?thcTile():drinkTile(o.p)).join('')}</div><button class="qmore" data-act="allDrinks" aria-label="All drinks">${gly('plus')}<span>All</span></button></div>`}
+const drinkTile=p=>`<button class="tile" data-add="${esc(p.id)}" aria-label="Log ${esc(p.name)}, ${f1(stdOf(p.ml,p.abv))} standard drinks">${gly(p.g||'star')}<span>${esc(p.name)}</span><em>${f1(stdOf(p.ml,p.abv))} · ${calFor(p,p.ml,p.abv)} cal</em></button>`;
+const thcTile=()=>`<button class="tile thc" data-add="thc" aria-label="Log a THC drink, ${f1(S.settings.thcMg||10)} milligrams">${gly('leaf')}<span>THC drink</span><em>${f1(S.settings.thcMg||10)} mg</em></button>`;
+function allDrinks(){openSheet(`<h3>Log a drink</h3><div class="grid">${allP().map(drinkTile).join('')}${thcTile()}<button class="tile" data-act="custom" aria-label="Log another drink">${gly('plus')}<span>Other</span><em>any size</em></button></div><p class="hint">Hold a drink to change its size or strength before logging. THC is tracked apart from alcohol.</p>`)}
+function drinkRow(x,when,sub,over){return `<li style="--i:${Math.min(8,x._i||0)}"><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${when}</time><div><div class="n">${esc(x.name)}</div><div class="d">${sub}</div></div><div class="s ${over?'over':''}">${f1(x.std)}</div>${PEN}</button></li>`}
 function vToday(){const s=stats(),st=S.settings,n=activeNight();
- const tiles=allP().map(p=>`<button class="tile" data-add="${esc(p.id)}" aria-label="Log ${esc(p.name)}, ${f1(stdOf(p.ml,p.abv))} standard drinks">${gly(p.g||'star')}<span>${esc(p.name)}</span><em>${f1(stdOf(p.ml,p.abv))} · ${calFor(p,p.ml,p.abv)} cal</em></button>`).join('')+`<button class="tile thc" data-add="thc" aria-label="Log a THC drink, ${f1(S.settings.thcMg||10)} milligrams">${gly('leaf')}<span>THC drink</span><em>${f1(S.settings.thcMg||10)} mg</em></button><button class="tile" data-act="custom" aria-label="Log another drink">${gly('plus')}<span>Other</span><em>any size</em></button>`;
- const tl=ALL().filter(x=>x.t>=s.ds).reverse(),tThc=sum(tl.filter(x=>x.kind==='thc'),'mg');let acc=s.wStd;const overIds=new Set();{let a=0;for(const x of s.week){a+=x.std;if(a>st.weekly+1e-6)overIds.add(x.id)}}
- const list=tl.length?`<ul class="log">${tl.map(x=>x.kind==='thc'?thcRow(x,clock(x.t)):`<li><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${clock(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${Math.round(x.ml)} ml · ${f1(x.abv)}% · ${x.cal} cal${x.place==='bar'?' · out':''}</div></div><div class="s ${overIds.has(x.id)?'over':''}">${f1(x.std)}</div></button></li>`).join('')}</ul>`:`<div class="empty">${st.dryDays.includes(s.dayIdx)?'A planned dry day. Lotl approves.':'Nothing logged today.'}</div>`;
- const todayLine=`<div class="today"><div><div class="lbl">Today</div><div><span class="num" style="font-size:34px">${f1(s.tStd)}</span> <span class="mute">of ${st.daily}</span>${s.tStd>0?`<span class="mute"> · ${Math.round(sum(s.today,'cal'))} cal</span>`:''}${tThc?`<span class="mute"> · ${f1(tThc)} mg THC</span>`:''}</div></div>${n?'':`<button class="pill" data-act="planNight">${moon()}Going out?</button>`}</div>`;
- return header()+tank(s)+(n?nightCard(n):'')+todayLine+`<h2>Log a drink</h2><div class="grid">${tiles}</div><p class="hint">Tap to log. Hold to change size or strength. THC is tracked apart from alcohol.</p>`+
+ const tl=ALL().filter(x=>x.t>=s.ds).reverse();const overIds=new Set();{let a=0;for(const x of s.week){a+=x.std;if(a>st.weekly+1e-6)overIds.add(x.id)}}
+ tl.forEach((x,i)=>x._i=i);
+ let hintOn=false;try{hintOn=!localStorage.getItem('ebb.editHint')}catch(e){}
+ const list=tl.length?`${hintOn?'<p class="hint" style="margin:-4px 0 8px">Tap a drink to change it. Swipe left to delete.</p>':''}<ul class="log sw-ok">${tl.map(x=>x.kind==='thc'?thcRow(x,clock(x.t)):drinkRow(x,clock(x.t),`${Math.round(x.ml)} ml · ${f1(x.abv)}% · ${x.cal} cal${x.place==='bar'?' · out':''}`,overIds.has(x.id))).join('')}</ul>`:`<div class="empty">${st.dryDays.includes(s.dayIdx)?'A planned dry day. Lotl approves.':'Nothing logged today.'}</div>`;
+ return header()+tank(s)+(n?nightCard(n):'')+quickRow()+
  `<button class="crave" data-go="calm"><span class="o"></span><span><b>Craving one?</b><small>Ride it out for 90 seconds first.</small></span></button>`+
  `<h2>Today's log</h2>${list}`}
 const moon=()=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
@@ -420,7 +572,7 @@ function vWeek(){const s=stats(),st=S.settings,L=D(),mx=Math.max(st.daily*1.5,..
  <h2>Streaks</h2><div class="tiles"><div class="stat"><span class="lbl">Dry streak</span><span class="num">${s.dryStreak}<span class="mute" style="font-size:.5em"> day${s.dryStreak===1?'':'s'}</span></span><small>Best ${s.bestDry}${s.todayDry?' · today counts if it stays dry':''}</small></div><div class="stat"><span class="lbl">Weeks on plan</span><span class="num">${s.weeksOn}</span><small>Finished weeks in a row at or under ${st.weekly}</small></div></div>
  ${weeksIn>=1?`<h2>Since you started</h2><div class="tiles"><div class="stat"><span class="lbl">Drinks fewer</span><span class="num ${fewer>=0?'aq':'overc'}">${f1(Math.abs(fewer))}</span><small>${fewer>=0?'than your usual':'more than your usual'}</small></div><div class="stat"><span class="lbl">Calories</span><span class="num ${calAll>=0?'aq':'overc'}">${Math.round(Math.abs(calAll)).toLocaleString()}</span><small>${calAll>=0?'skipped vs your usual':'more than your usual'}</small></div></div>`:''}
  <h2>Patterns</h2>${patterns()}
- <details><summary>Recent drinks</summary>${recent.length?`<ul class="log">${recent.map(x=>x.kind==='thc'?thcRow(x,mdate(x.t),clock(x.t)):`<li><button data-edit="${x.id}"><time>${mdate(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${clock(x.t)} · ${x.cal} cal</div></div><div class="s">${f1(x.std)}</div></button></li>`).join('')}</ul>`:'<p class="mute">Nothing yet.</p>'}</details>`}
+ <details><summary>Recent drinks</summary>${recent.length?`<ul class="log">${recent.map(x=>x.kind==='thc'?thcRow(x,mdate(x.t),clock(x.t)):`<li><button data-edit="${x.id}"><time>${mdate(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${clock(x.t)} · ${x.cal} cal</div></div><div class="s">${f1(x.std)}</div>${PEN}</button></li>`).join('')}</ul>`:'<p class="mute">Nothing yet.</p>'}</details>`}
 function patterns(){const t=now(),from=t-28*DAY,L=D().filter(x=>x.t>=from);if(L.length<6)return`<div class="empty">Patterns show up after a few more drinks are logged.</div>`;
  const tot=sum(L,'std'),out=[];const wd=Array(7).fill(0);for(const x of L)wd[wdOf(dayStart(x.t))]+=x.std;const top=wd.indexOf(Math.max(...wd));out.push(`${WDL[top]} carry ${Math.round(wd[top]/tot*100)}% of your drinking. That's the night to plan ahead for.`);
  const bar=sum(L.filter(x=>x.place==='bar'),'std');out.push(bar/tot>=.5?`${Math.round(bar/tot*100)}% of your drinks happen out. Set a night plan before you leave.`:`${Math.round(100-bar/tot*100)}% of your drinks happen at home. Keeping less in the house is the easiest lever.`);
@@ -464,7 +616,7 @@ function vMe(){const st=S.settings;const dd=WD.map((w,i)=>`<button data-act="dry
  <div class="field"><label for="why">Why you're cutting down</label><textarea id="why" data-set="why" maxlength="160" placeholder="Sleep better, sharper mornings, more present at home">${esc(st.why)}</textarea></div></div>
  ${cust.length?`<h2>Your drinks</h2><div class="card">${cust.map(c=>`<div class="setrow"><div class="t">${esc(c.name)}<small>${Math.round(c.ml)} ml · ${f1(c.abv)}% · ${f1(stdOf(c.ml,c.abv))} std</small></div><button class="pill ghost" data-act="rmCustom" data-id="${c.id}">Remove</button></div>`).join('')}</div>`:''}
  <h2>Your data</h2><div class="card"><p id="syncl" class="mute" style="margin:0 0 12px">${syncLabel()}</p><p class="hint" style="margin-top:0">${sync.state==='local'?'Stays in this browser. Export a backup now and then.':'Kept privately in your Claude account, so it follows you to your Mac. Nobody else can read it.'}</p>
- <div class="btns"><button class="pill full" data-act="export">Back up or move data</button><div class="hold" role="button" tabindex="0" data-hold="reset"><span class="f"></span><span>Hold to erase everything</span></div></div></div>
+ <div class="btns"><button class="pill full" data-act="export">Back up or move data</button><div class="hold soft" role="button" tabindex="0" data-hold="clearLog"><span class="f"></span><span>Hold to clear drink log</span></div><p class="hint" style="margin:-4px 0 4px;text-align:center">Clears drinks, THC, nights, urges and streaks. Keeps your plan and custom drinks.</p><div class="hold" role="button" tabindex="0" data-hold="reset"><span class="f"></span><span>Hold to erase everything</span></div></div></div>
  <p class="hint">A standard drink here is 14 g of alcohol, the US definition. Ebb is a self-help tool, not medical advice. If you drink heavily every day, stopping suddenly can be dangerous, so talk to a doctor first.</p>`}
 const LIM={weekly:[0,70,1],daily:[1,20,1],dryTarget:[0,7,1],baseline:[0,100,1],price:[0,100,1]};
 const stepper=(k,v,ob)=>`<div class="step"><button data-act="step" data-k="${k}" data-d="-1" ${ob?'data-ob="1"':''} aria-label="Less">−</button><output>${v}</output><button data-act="step" data-k="${k}" data-d="1" ${ob?'data-ob="1"':''} aria-label="More">+</button></div>`;
@@ -473,8 +625,8 @@ const stepper=(k,v,ob)=>`<div class="step"><button data-act="step" data-k="${k}"
 function makeThc(o){const n=activeNight();return{id:uid(),t:o.t??now(),kind:'thc',pid:'thc',name:o.name||'THC drink',mg:r2(+(o.mg??S.settings.thcMg??10)),ml:0,abv:0,std:0,cal:0,price:0,place:n?'bar':'home',u:now()}}
 function thcWeek(){const ws=weekStart(now());return sum(TH().filter(x=>x.t>=ws),'mg')}
 function logThc(d){S.drinks.push(d);commit();const el=document.querySelector('[data-add="thc"]');if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}
- toast(`${esc(d.name)} logged · ${f1(thcWeek())} mg THC this week`,()=>{d.del=true;d.u=now();commit()})}
-function thcRow(x,when,sub){return`<li><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${when}</time><div><div class="n">${esc(x.name)}</div><div class="d">${sub?sub+' · ':''}THC · not counted as alcohol</div></div><div class="s thc">${f1(x.mg)}<small>mg</small></div></button></li>`}
+ play('tilt',true);toast(`${esc(d.name)} logged · ${f1(thcWeek())} mg THC this week`,()=>{d.del=true;d.u=now();commit()})}
+function thcRow(x,when,sub){return`<li style="--i:${Math.min(8,x._i||0)}"><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${when}</time><div><div class="n">${esc(x.name)}</div><div class="d">${sub?sub+' · ':''}THC · not counted as alcohol</div></div><div class="s thc">${f1(x.mg)}<small>mg</small></div>${PEN}</button></li>`}
 function thcSheet(x,isNew){const tv=new Date(x.t-new Date(x.t).getTimezoneOffset()*MIN).toISOString().slice(0,16);
  openSheet(`<h3>${isNew?'Log a THC drink':'Edit THC drink'}</h3><form id="tf"><div class="field"><label for="tn">Name</label><input id="tn" type="text" maxlength="40" value="${esc(x.name)}"></div>
  <div class="field"><label for="tmg">THC in mg</label><div class="seg" style="margin-bottom:6px">${[2.5,5,10,20].map(v=>`<button type="button" data-act="tmg" data-v="${v}">${v} mg</button>`).join('')}</div><input id="tmg" type="number" inputmode="decimal" min="0.5" max="500" step="0.5" value="${x.mg}"></div>
@@ -502,8 +654,8 @@ function liverState(extra=0){const L=D(),st=S.settings,ds=dayStart(now()),since=
  const days=af+extra,rec=Math.min(1,days/42),shown=fat*(1-rec);
  return{g,avgW,heavy,pre,af,days,fat,rec,shown,over:avgW>g.w+1e-6||heavy>0,overW:avgW>g.w+1e-6,hasLast:!!last}}
 let lvN=0;function liverSVG(f,rec){const N=DROPS.length,u=++lvN;
- const drops=DROPS.map(([x,y,r],i)=>{const o=Math.max(0,Math.min(1,f*N*1.15-i));return o>0?`<circle cx="${x}" cy="${y}" r="${(r*(.7+.5*f)).toFixed(1)}" fill="url(#lvD${u})" opacity="${(o*.9).toFixed(2)}"/>`:''}).join('');
- const red=f>.6?[[100,85,22],[170,70,18],[90,140,16]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#e0505f" opacity="${((f-.6)*.55).toFixed(2)}" filter="url(#lvSoft${u})"/>`).join(''):'';
+ const drops=DROPS.map(([x,y,r],i)=>{const o=Math.max(0,Math.min(1,f*N*1.15-i));return `<circle cx="${x}" cy="${y}" r="${(r*(.7+.5*f)).toFixed(1)}" fill="url(#lvD${u})" opacity="${(o*.9).toFixed(2)}"/>`}).join('');
+ const red=[[100,85,22],[170,70,18],[90,140,16]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#e0505f" opacity="${(Math.max(0,f-.6)*.55).toFixed(2)}" filter="url(#lvSoft${u})"/>`).join('');
  const halo=rec>0&&f>0?((1-f)*.3+rec*.5):0;
  return`<svg viewBox="-10 0 320 200" class="liver" role="img" aria-label="Illustrated liver"><defs><linearGradient id="lvG${u}" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="${mixC('#cf5d74','#ecca72',f)}"/><stop offset="1" stop-color="${mixC('#6e2238','#a9782f',f)}"/></linearGradient><radialGradient id="lvD${u}"><stop offset="0" stop-color="#fff3c4"/><stop offset=".6" stop-color="#f6dc8e" stop-opacity=".85"/><stop offset="1" stop-color="#f6dc8e" stop-opacity="0"/></radialGradient><clipPath id="lvC${u}"><path d="${LP}"/></clipPath><filter id="lvBlur${u}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter><filter id="lvSoft${u}"><feGaussianBlur stdDeviation="6"/></filter></defs>
  <ellipse cx="155" cy="186" rx="120" ry="8" fill="#000" opacity=".35"/>
@@ -537,21 +689,97 @@ function vLiver(){const L=liverState(),st=S.settings,w=liverWords(L);
  <li><i></i><span><b>Cirrhosis.</b> Scarring takes over and doesn't fully heal.</span></li></ul>
  <p class="hint">Ebb only illustrates the first stage, from your logs.</p></div>
  <div class="note">This is an illustration of risk based on what you log, not a diagnosis. Only a blood test or a liver scan shows how your liver actually is. See a doctor if you notice yellow skin or eyes, a swollen belly or pain under your right ribs.<br><br>Sources: NIAAA drinking guidelines; O'Shea et al., Alcoholic liver disease, Hepatology 2010.</div>`}
-function lvSim(v){const L=liverState(v),w=liverWords(L),f=$('#lvFig'),t=$('#lvState'),l=$('#lvSimL');if(f)f.innerHTML=liverSVG(L.shown,L.rec);
+function morphLiver(f,html){const o=f.querySelector('svg');if(!o||RM){f.innerHTML=html;return}const t=document.createElement('div');t.innerHTML=html;const n=t.querySelector('svg'),A=o.querySelectorAll('*'),B=n.querySelectorAll('*');if(A.length!==B.length){f.innerHTML=html;return}
+ B.forEach((b,i)=>{const a=A[i];for(const at of b.attributes){if(at.name==='id'||/url\(/.test(at.value))continue;if(a.getAttribute(at.name)!==at.value)a.setAttribute(at.name,at.value)}})}
+function lvSim(v){const L=liverState(v),w=liverWords(L),f=$('#lvFig'),t=$('#lvState'),l=$('#lvSimL');if(f)morphLiver(f,liverSVG(L.shown,L.rec));
  if(t)t.innerHTML=`<b>${esc(v?(L.fat>.06?(L.rec>=1?'Recovered, if no scarring':`Day ${L.days} of 42`):w.label):w.head)}</b><span>${esc(v?(L.fat>.06?`After ${v} more alcohol-free day${v===1?'':'s'}: ${w.label.toLowerCase()}.`:"Nothing to clear. Dry days still help everything else."):w.line)}</span>`;
  if(l)l.textContent=v?`+${v} alcohol-free day${v===1?'':'s'}`:'Slide to see it after more alcohol-free days'}
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='lvSim')lvSim(+e.target.value)});
 document.addEventListener('change',e=>{if(e.target&&e.target.id==='lvSim'){e.target.blur();if(pendingRender)setTimeout(render,0)}});
 
+/* ---------- motion, Lotl's life ---------- */
+const RM=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+function roll(e,a,b){if(RM||a===b||!e)return;const t0=performance.now(),d=800;e.textContent=f1(a);const st=t=>{const k=Math.min(1,(t-t0)/d),q=1-Math.pow(1-k,3);e.textContent=f1(a+(b-a)*q);if(k<1)requestAnimationFrame(st)};requestAnimationFrame(st)}
+function syncHero(o,n){const paused=o.classList.contains('paused');o.className=n.className;if(paused)o.classList.add('paused');o.setAttribute('style',n.getAttribute('style'));
+ const oc=[...o.querySelectorAll('.hud [data-count]')].map(e=>+e.dataset.count),ob=o.querySelector('.meter b'),ow=ob&&ob.style.width;
+ o.querySelector('.hud').innerHTML=n.querySelector('.hud').innerHTML;
+ const ml=o.querySelector('.moodline'),nm=n.querySelector('.moodline').innerHTML;if(ml.innerHTML!==nm)ml.innerHTML=nm;
+ const os=o.querySelector('.act svg'),ns=n.querySelector('.act svg');if(os&&ns&&os.getAttribute('class')!==ns.getAttribute('class'))os.replaceWith(ns);
+ const nb=o.querySelector('.meter b');if(nb&&ow&&!RM){const w=nb.style.width;nb.style.transition='none';nb.style.width=ow;void nb.offsetWidth;nb.style.transition='';nb.style.width=w}
+ [...o.querySelectorAll('.hud [data-count]')].forEach((e,i)=>{if(oc[i]!=null)roll(e,oc[i],+e.dataset.count)})}
+let anT=0,anBusy=false;
+const moodOf=h=>(h.className.match(/m-(\w+)/)||[])[1]||'ok';
+function heroSetup(){const h=$('#hero');if(!h){clearTimeout(anT);anT=0;return}
+ if(!h._io&&'IntersectionObserver' in window){h._io=new IntersectionObserver(es=>{for(const e of es)h.classList.toggle('paused',!e.isIntersecting||document.hidden)},{threshold:.08});h._io.observe(h)}
+ if(!anT)schedAntic();if(!h._cc){h._cc=1;setTimeout(checkCele,900)}}
+function schedAntic(){clearTimeout(anT);anT=0;const h=$('#hero');if(!h||RM)return;const[a,b]={proud:[5,9],glow:[6,11],ok:[8,14],wary:[13,20],wilt:[18,28]}[moodOf(h)]||[9,14];
+ anT=setTimeout(()=>{anT=0;runAntic();schedAntic()},(a+Math.random()*(b-a))*1000)}
+function runAntic(){const h=$('#hero');if(!h||document.hidden||h.classList.contains('paused')||anBusy||!$('#sheet').hidden)return;
+ const pool={proud:['flip','chase','wave','peek','shimmy','flip','pebble'],glow:['flip','chase','wave','peek','pebble','shimmy','chase','nap'],ok:['chase','wave','peek','pebble','nap','shimmy'],wary:['peek','nap','chase','wave'],wilt:['nap','nap','sigh']}[moodOf(h)];
+ play(pool[Math.random()*pool.length|0])}
+const ADUR={flip:1400,hop:760,flinch:1000,peek:2300,chase:2000,shimmy:1200,nap:5200,giggle:900,pebble:2300,wave:1600,sigh:2600,tilt:1200};
+function play(name,force){const h=$('#hero');if(!h||RM)return;if(anBusy&&!force)return;const act=h.querySelector('.act');if(!act)return;
+ act.removeAttribute('data-a');void act.getBoundingClientRect();act.setAttribute('data-a',name);anBusy=true;clearTimeout(act._t);act._t=setTimeout(()=>{act.removeAttribute('data-a');anBusy=false},ADUR[name]||1200);fx(name,h)}
+function spawn(h,cls,x,y,extra='',life=2200,html=''){const e=document.createElement('i');e.className='fx '+cls;e.style.cssText=`--x:${Math.round(x)}px;--y:${Math.round(y)}px;${extra}`;if(html)e.innerHTML=html;h.appendChild(e);setTimeout(()=>e.remove(),life);return e}
+function lotlPos(h){const hr=h.getBoundingClientRect(),a=h.querySelector('.act'),ar=a?a.getBoundingClientRect():hr;return{x:ar.left-hr.left+ar.width/2,y:ar.top-hr.top+ar.height*.42,w:ar.width||200,h:ar.height||170,H:hr.height||500}}
+const HEART='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.6 1.2 5.4 3.2 1.8-2 3.3-3.2 5.4-3.2 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+function fx(n,h){const P=lotlPos(h);
+ if(n==='chase'){const b=spawn(h,'b bh',P.x+P.w*.4,P.y-P.h*.45,'',1800);setTimeout(()=>{b.classList.remove('bh');b.classList.add('pop')},1150)}
+ if(n==='flip'||n==='shimmy'||n==='hop')for(let i=0;i<4;i++)setTimeout(()=>spawn(h,'b',P.x+(i-1.5)*16,P.y+P.h*.15,`--dx:${(i-1.5)*12}px;--t:1.4s`,1500),i*90);
+ if(n==='hop')spawn(h,'r',P.x,P.y+P.h*.1,'',950);
+ if(n==='nap'||n==='sigh')[0,1100,2200].slice(0,n==='nap'?3:1).forEach(d=>setTimeout(()=>spawn(h,'z',P.x+P.w*.2,P.y-P.h*.2,'',2100,'z'),d+500));
+ if(n==='pebble')spawn(h,'p',P.x-P.w*.2,P.H*.9,`--dx:${Math.round(P.w*.6)}px`,2500);
+ if(n==='giggle')for(let i=0;i<3;i++)setTimeout(()=>spawn(h,'h',P.x+(i-1)*28,P.y-P.h*.32,`--dx:${(i-1)*18}px`,1600,HEART),i*120);
+ if(n==='peek'||n==='wave')spawn(h,'r',P.x,P.y,'',950)}
+function lotlTap(){const h=$('#hero');if(!h)return;const m=moodOf(h);const pool=m==='wilt'?['sigh','giggle']:m==='wary'?['giggle','wave','shimmy']:['giggle','flip','wave','shimmy','giggle'];play(pool[Math.random()*pool.length|0],true)}
+function celebrate(msg){const h=$('#hero');if(!h)return;play('flip',true);const P=lotlPos(h),C=['#7be0d3','#f7a9d4','#ffb08a','#c9a8ff','#fff3a8'];
+ if(!RM)for(let i=0;i<30;i++){const a=Math.random()*Math.PI*2,d=70+Math.random()*130;spawn(h,'c',P.x,P.y,`--c:${C[i%5]};--dx:${Math.round(Math.cos(a)*d)}px;--dy:${Math.round(Math.sin(a)*d-50)}px;--r:${Math.round(Math.random()*720)}deg`,1800)}
+ const c=document.createElement('div');c.className='cele';c.setAttribute('role','status');c.textContent=msg;h.appendChild(c);setTimeout(()=>c.remove(),4100)}
+function checkCele(){if(view!=='today'||!S.setup||!$('#hero'))return;const s=stats(),st=S.settings,L=D();let seen={};try{seen=JSON.parse(localStorage.getItem('ebb.cele')||'{}')}catch(e){}
+ const out=[];const yd=addDays(s.ds,-1);
+ if(yd>=s.since&&!L.some(x=>x.t>=yd&&x.t<s.ds)&&!seen['d'+yd]){seen['d'+yd]=1;out.push([1,'Yesterday was dry. Lotl is doing laps.'])}
+ const ms=[3,7,14,21,30,42,60,90].filter(k=>s.dryStreak>=k).pop();if(ms){const k='s'+ms+'_'+addDays(s.ds,-s.dryStreak);if(!seen[k]){seen[k]=1;out.push([3,`${ms} dry days in a row. Lotl is thrilled.`])}}
+ const lw=addDays(s.ws,-7);if(s.since<s.ws){const v=sum(L.filter(x=>x.t>=lw&&x.t<s.ws),'std');if(v<=st.weekly+1e-6&&!seen['w'+lw]){seen['w'+lw]=1;out.push([2,`Last week came in under plan: ${f1(v)} of ${st.weekly}.`])}}
+ try{localStorage.setItem('ebb.cele',JSON.stringify(seen))}catch(e){}
+ if(out.length){out.sort((a,b)=>b[0]-a[0]);celebrate(out[0][1])}}
+document.addEventListener('visibilitychange',()=>{const h=$('#hero');if(h)h.classList.toggle('paused',document.hidden)});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('.act')){e.preventDefault();lotlTap()}});
+function ripple(el,e){if(RM)return;const r=el.getBoundingClientRect(),sp=document.createElement('span');sp.className='rip';sp.style.cssText=`--x:${(e&&e.clientX?e.clientX:r.left+r.width/2)-r.left}px;--y:${(e&&e.clientY?e.clientY:r.top+r.height/2)-r.top}px`;el.appendChild(sp);setTimeout(()=>sp.remove(),650)}
+function seenHint(){try{localStorage.setItem('ebb.editHint','1')}catch(e){}}
+function delWithUndo(x){x.del=true;x.u=now();seenHint();commit();toast(`Deleted ${esc(x.name)}`,()=>{x.del=false;x.u=now();commit()})}
+/* swipe left to delete */
+let swp=null,swipedAt=0;
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('.sw-ok li>button');if(b)swp={b,li:b.parentNode,x:e.clientX,y:e.clientY,dx:0,on:false}},{passive:true});
+document.addEventListener('pointermove',e=>{if(!swp)return;const dx=e.clientX-swp.x,dy=e.clientY-swp.y;
+ if(!swp.on){if(Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)*1.3){swp.on=true;swp.li.classList.add('swp');swp.b.style.transition='none'}else if(Math.abs(dy)>12){swp=null;return}else return}
+ swp.dx=Math.min(0,dx);swp.b.style.transform=`translateX(${swp.dx}px)`;swp.li.classList.toggle('sw',swp.dx<-80)},{passive:true});
+function swEnd(){if(!swp)return;const w=swp;swp=null;if(!w.on)return;swipedAt=now();w.b.style.transition='';
+ if(w.dx<-80){w.b.style.transform='translateX(-105%)';const x=S.drinks.find(d=>d.id===w.b.dataset.edit);setTimeout(()=>{if(x)delWithUndo(x)},220)}else{w.b.style.transform='';setTimeout(()=>w.li.classList.remove('sw','swp'),300)}}
+for(const ev of['pointerup','pointercancel'])document.addEventListener(ev,swEnd,true);
+/* drag a sheet down to close */
+let sdr=null;
+document.addEventListener('touchstart',e=>{const sh=$('#sheet');if(sh.hidden||!sh.contains(e.target)||e.touches.length>1)return;if(e.target.closest('input,textarea,select,[data-hold],.qs,.lvsim'))return;sdr={y:e.touches[0].clientY,t:now(),dy:0,on:false,top:sh.scrollTop}},{passive:true});
+document.addEventListener('touchmove',e=>{if(!sdr)return;const sh=$('#sheet'),dy=e.touches[0].clientY-sdr.y;
+ if(!sdr.on){if(dy>8&&sh.scrollTop<=0&&sdr.top<=0){sdr.on=true;sh.style.transition='none'}else if(Math.abs(dy)>8){sdr=null;return}else return}
+ e.preventDefault();sdr.dy=Math.max(0,dy);sh.style.transform=`translateY(${sdr.dy}px)`;$('#scrim').style.opacity=String(Math.max(0,1-sdr.dy/400))},{passive:false});
+document.addEventListener('touchend',()=>{if(!sdr)return;const d=sdr;sdr=null;if(!d.on)return;const sh=$('#sheet'),v=d.dy/Math.max(1,now()-d.t);sh.style.transition='';$('#scrim').style.opacity='';
+ if(d.dy>110||v>.55){sh.style.transform='';closeSheet()}else sh.style.transform=''});
+
 /* ---------- render ---------- */
 let pendingRender=false;
+let lastView=null,qOrder=null;
 function render(){if(!S.setup){$('#app').innerHTML='';onboard();return}
  const ae=document.activeElement;if(ae&&$('#app').contains(ae)&&/INPUT|TEXTAREA/.test(ae.tagName)){pendingRender=true;return}
  pendingRender=false;$('#obRoot').innerHTML='';
+ const prev=lastView;lastView=view;const oldHero=view==='today'&&prev==='today'?$('#hero'):null,qs=$('.qs'),qsl=qs?qs.scrollLeft:0;
  $('#app').innerHTML=view==='week'?vWeek():view==='calm'?vCalm():view==='me'?vMe():view==='liver'?vLiver():vToday();
+ if(oldHero){const nh=$('#hero');if(nh){syncHero(oldHero,nh);nh.replaceWith(oldHero)}}
+ const nq=$('.qs');if(nq&&prev===view)nq.scrollLeft=qsl;
+ const app=$('#app');if(prev!==view&&!RM){app.classList.remove('vin');[...app.children].forEach((c,i)=>c.style.setProperty('--k',Math.min(i,9)));void app.offsetWidth;app.classList.add('vin');clearTimeout(app._vt);app._vt=setTimeout(()=>app.classList.remove('vin'),1400);if(view==='today')for(const e of app.querySelectorAll('.hud [data-count]'))roll(e,0,+e.dataset.count)}
+ heroSetup();
  for(const a of document.querySelectorAll('.tabs a'))a.setAttribute('aria-current',a.dataset.v===view?'page':'false');
  if(ro){ro.disconnect();ro=null}const tr=$('#trend');if(tr){ro=new ResizeObserver(drawTrend);ro.observe(tr)}}
-function route(){const h=location.hash.replace('#','');view=['week','calm','me','liver'].includes(h)?h:'today';if(view!=='calm'&&calm.on){calm.on=false;clearInterval(calm.timer)}render();window.scrollTo(0,0)}
+function route(){qOrder=null;const h=location.hash.replace('#','');view=['week','calm','me','liver'].includes(h)?h:'today';if(view!=='calm'&&calm.on){calm.on=false;clearInterval(calm.timer)}render();window.scrollTo(0,0)}
 function go(v){const h=v==='today'?'':'#'+v,c=location.hash==='#'?'':location.hash;if(c===h)route();else location.hash=h}
 
 /* ---------- onboarding ---------- */
@@ -573,7 +801,7 @@ function onboard(){const st=OB.step,prog=`<div class="prog">${[0,1,2,3].map(i=>`
 /* ---------- actions ---------- */
 function addDrink(d,{skipCheck=false,tile=null}={}){const f=skipCheck?null:friction(d);if(f){pause(f);return}
  S.drinks.push(d);commit();if(tile){const el=document.querySelector(`[data-add="${CSS.escape(tile)}"]`);if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}}
- const s=stats();toast(`${esc(d.name)} logged · ${f1(s.wStd)} of ${S.settings.weekly} this week`,()=>{d.del=true;d.u=now();commit()})}
+ const s=stats();play(s.wStd>S.settings.weekly+1e-6?'flinch':'hop',true);toast(`${esc(d.name)} logged · ${f1(s.wStd)} of ${S.settings.weekly} this week`,()=>{d.del=true;d.u=now();commit()})}
 function makeDrink(p,o={}){const n=activeNight(),place=o.place||(n?'bar':'home'),ml=+(o.ml??p.ml),abv=+(o.abv??p.abv),pr=S.settings.prices[p.id];
  const price=o.price!=null?+o.price:(pr&&pr[place]!=null?+pr[place]:p[place]);
  return{id:uid(),t:o.t??now(),pid:p.id,name:(o.name??p.name)||'Drink',ml,abv,std:r2(stdOf(ml,abv)),cal:calFor(p,ml,abv),price:r2(price||0),place,u:now()}}
@@ -593,7 +821,7 @@ function pause(f){pending=f.d;const st=S.settings,b=st.tone==='blunt'?'b':'g',to
 function editSheet(x,isNew){const p=findP(x.pid||'beer');const sizes=[[44,'1.5 oz'],[150,'5 oz'],[355,'12 oz'],[473,'16 oz'],[568,'20 oz'],[750,'Bottle']];
  const tv=new Date(x.t-new Date(x.t).getTimezoneOffset()*MIN).toISOString().slice(0,16);
  openSheet(`<h3>${isNew?'Log a drink':'Edit drink'}</h3><form id="ef"><div class="field"><label for="en">Name</label><input id="en" type="text" maxlength="40" value="${esc(x.name)}"></div>
- <div class="field"><label for="eml">Size in ml</label><div class="seg" style="margin-bottom:6px">${sizes.map(([v,l])=>`<button type="button" data-act="esize" data-v="${v}">${l}</button>`).join('')}</div><input id="eml" type="number" inputmode="decimal" min="10" max="2000" step="1" value="${Math.round(x.ml)}"></div>
+ <div class="field"><label for="eml">Size in ml</label><div class="seg" style="margin-bottom:6px">${sizes.map(([v,l])=>`<button type="button" data-act="esize" data-v="${v}">${l}</button>`).join('')}</div><div class="qty"><button type="button" class="pill h" data-act="mlq" data-v="half">Half</button><button type="button" class="pill" data-act="mlq" data-v="-" aria-label="Smaller">−</button><input id="eml" type="number" inputmode="decimal" min="10" max="2000" step="1" value="${Math.round(x.ml)}"><button type="button" class="pill" data-act="mlq" data-v="+" aria-label="Larger">+</button></div></div>
  <div class="field"><label for="eabv">Strength <output id="eabvo">${f1(x.abv)}%</output></label><input id="eabv" type="range" min="0.5" max="60" step="0.5" value="${x.abv}"></div>
  <div class="field"><label for="et">When</label><input id="et" type="datetime-local" value="${tv}"></div>
  ${isNew?`<label class="setrow" style="cursor:pointer"><span class="t">Add to my drinks<small>Shows up as a one-tap button</small></span><input id="esave" type="checkbox" style="width:24px;height:24px;accent-color:var(--aqua)"></label>`:''}
@@ -603,7 +831,7 @@ function editSheet(x,isNew){const p=findP(x.pid||'beer');const sizes=[[44,'1.5 o
   $('#sheet').dataset.edit=isNew?'':x.id;
   $('#ef').onsubmit=e=>{e.preventDefault();const o={name:$('#en').value.trim()||p.name,ml:Math.max(1,+ml.value||p.ml),abv:+abv.value,t:new Date($('#et').value).getTime()||now()};
    if(isNew){const d=makeDrink(p,{...o,place:x.place});if($('#esave')&&$('#esave').checked){S.custom.push({id:'c'+uid(),name:o.name,ml:o.ml,abv:o.abv,cal:0,home:0,bar:0,g:'star',u:now()})}closeSheet();addDrink(d)}
-   else{Object.assign(x,o,{std:r2(stdOf(o.ml,o.abv)),cal:calFor(p,o.ml,o.abv),u:now()});closeSheet();commit();toast('Saved')}}})}
+   else{Object.assign(x,o,{std:r2(stdOf(o.ml,o.abv)),cal:calFor(p,o.ml,o.abv),u:now()});seenHint();closeSheet();commit();toast('Saved')}}})}
 function planNight(){const s=stats(),st=S.settings,def=Math.max(1,Math.min(st.daily,Math.floor(Math.max(1,s.left))));const nw={limit:def,pace:45,water:true};
  const draw=()=>openSheet(`${lotl('glow','mini')}<h3 style="text-align:center">Plan tonight before it starts</h3><p class="mute" style="text-align:center">Deciding now, with a clear head, is the single best predictor of sticking to it.</p>
  <div class="setrow"><div class="t">Drinks tonight<small>${f1(Math.max(0,s.left))} left in your week</small></div><div class="step"><button data-act="nstep" data-d="-1" aria-label="Less">−</button><output>${nw.limit}</output><button data-act="nstep" data-d="1" aria-label="More">+</button></div></div>
@@ -623,15 +851,21 @@ let tT=0;function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${msg}<
 document.addEventListener('click',e=>{const el=e.target.closest('[data-act],[data-add],[data-edit],[data-go],.tabs a');if(!el)return;
  if(el.matches('.tabs a')){e.preventDefault();go(el.dataset.v);return}
  if(el.dataset.go){go(el.dataset.go);return}
+ if(el.dataset.add&&el.closest('#sheet')&&!longFired)closeSheet();
+ if(el.dataset.add)ripple(el,e);
  if(el.dataset.add==='thc'){if(longFired){longFired=false;return}logThc(makeThc({}));return}
  if(el.dataset.add){if(longFired){longFired=false;return}addDrink(makeDrink(findP(el.dataset.add)),{tile:el.dataset.add});return}
+ if(el.dataset.edit&&now()-swipedAt<450)return;
  if(el.dataset.edit){const x=S.drinks.find(d=>d.id===el.dataset.edit);if(x)(x.kind==='thc'?thcSheet(x,false):editSheet(x,false));return}
  const a=el.dataset.act,st=S.settings;
  if(a==='close'){closeSheet();return}
  if(a==='undo'){const t=$('#toast');if(t._undo){t._undo();t._undo=null}t.classList.remove('on');return}
  if(a==='custom'){editSheet({pid:'beer',name:'',ml:355,abv:5,price:activeNight()?9:2,t:now(),place:activeNight()?'bar':'home'},true);return}
  if(a==='esize'){$('#eml').value=el.dataset.v;$('#eml').oninput();return}
- if(a==='delDrink'){const x=S.drinks.find(d=>d.id===$('#sheet').dataset.edit);if(x){x.del=true;x.u=now();closeSheet();commit();toast('Deleted',()=>{x.del=false;x.u=now();commit()})}return}
+ if(a==='mlq'){const i=$('#eml');if(!i)return;let v=+i.value||0;v=el.dataset.v==='half'?v/2:el.dataset.v==='+'?v*1.25:v*.8;i.value=Math.max(10,Math.min(2000,Math.round(v)));i.oninput&&i.oninput();return}
+ if(a==='allDrinks'){allDrinks();return}
+ if(a==='lotlTap'){lotlTap();return}
+ if(a==='delDrink'){const x=S.drinks.find(d=>d.id===$('#sheet').dataset.edit);if(x){closeSheet();delWithUndo(x)}return}
  if(a==='pauseRide'){const d=pending;closeSheet();calm.from=d;go('calm');setTimeout(()=>startCalm(),350);return}
  if(a==='pauseSwap'){S.events.push({id:uid(),t:now(),type:'swap',u:now()});closeSheet();commit();toast('Water it is. Lotl noticed.');return}
  if(a==='planNight'){planNight();return}
@@ -670,6 +904,7 @@ let holdT=0,longT=0,longFired=false,downEl=null;
 function holdStart(el){el.classList.add('on');holdT=setTimeout(()=>{el.classList.remove('on');runHold(el.dataset.hold)},1400)}
 function holdEnd(){clearTimeout(holdT);for(const h of document.querySelectorAll('.hold.on'))h.classList.remove('on')}
 function runHold(k){if(k==='logAnyway'&&pending){const d=pending;closeSheet();d.t=now();d.u=now();addDrink(d,{skipCheck:true})}
+ if(k==='clearLog'){const t=now();for(const k2 of['drinks','events','nights'])for(const x of S[k2]){x.del=true;x.u=t}S.settings.since=t;S.settings.u=t;try{localStorage.removeItem('ebb.cele')}catch(e){}commit();toast('Drink log cleared. Your plan is unchanged.');return}
  if(k==='reset'){const t=now();for(const k2 of['drinks','events','nights','custom'])for(const x of S[k2]){x.del=true;x.u=t}S.settings={...DEF().settings,u:t};S.setup=false;OB={step:0,baseline:14,weekly:10,daily:4,dryTarget:2,tone:'gentle',why:'',price:10};saveLocal();queueSync();location.hash='';view='today';render()}}
 let dx=0,dy=0;
 document.addEventListener('pointerdown',e=>{const h=e.target.closest('[data-hold]');if(h){e.preventDefault();holdStart(h);return}
