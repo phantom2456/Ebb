@@ -20,7 +20,7 @@
    PICTURE: the tank, clear and glowing under plan, clouding coral past it.
    COLOUR+TYPE: ink-violet night, aqua for clear water, coral past plan; Instrument Serif numerals, Inter Tight UI.
    LAYOUT: one phone column. Tank first, quick add, today's log, tab bar. */
-:root{color-scheme:dark;--bg:#0b0a10;--s1:#14121b;--s2:#1c1925;--s3:#272334;--line:#2d2939;--ink:#f3eff7;--mute:#a49db3;--dim:#6f6881;--aqua:#7be0d3;--aqua2:#2f9e95;--pink:#f7a9d4;--gill:#ff7ab8;--warm:#ffb08a;--over:#ff5d63;--r:22px;--safeT:env(safe-area-inset-top,0px);--safeB:env(safe-area-inset-bottom,0px)}
+:root{color-scheme:dark;--bg:#0b0a10;--s1:#14121b;--s2:#1c1925;--s3:#272334;--line:#2d2939;--ink:#f3eff7;--mute:#a49db3;--dim:#6f6881;--aqua:#7be0d3;--aqua2:#2f9e95;--pink:#f7a9d4;--gill:#ff7ab8;--warm:#ffb08a;--over:#ff5d63;--lav:#c9a8ff;--r:22px;--safeT:env(safe-area-inset-top,0px);--safeB:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--bg)}
 body{margin:0;background:radial-gradient(120% 60% at 50% -10%,#1b1430 0,var(--bg) 60%) fixed,var(--bg);color:var(--ink);font:16px/1.5 "Inter Tight",system-ui,-apple-system,sans-serif;overflow-x:clip;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -100,6 +100,21 @@ p{margin:0 0 10px}
 .log .d{font-size:13px;color:var(--mute)}
 .log .s{font-family:"Instrument Serif",serif;font-size:24px;text-align:right;white-space:nowrap}
 .log .s.over{color:var(--over)}
+.log .s.thc{color:var(--lav);font-size:20px}.log .s.thc small{font-family:inherit;font-size:12px;margin-left:2px;color:var(--mute)}
+.tile.thc svg{color:var(--lav)}
+.liverfig{position:relative;margin:4px -6px 0}
+.liver{display:block;width:100%;height:auto;overflow:visible}
+.liver .lvb{animation:lvBreath 6s ease-in-out infinite}
+@keyframes lvBreath{50%{filter:brightness(1.06)}}
+@media (prefers-reduced-motion:reduce){.liver .lvb{animation:none}}
+.lvstate{text-align:center;margin:2px 0 4px}.lvstate b{display:block;font-family:"Instrument Serif",serif;font-weight:400;font-size:30px;line-height:1.1}
+.lvstate span{color:var(--mute);font-size:14px}
+.lvbar{height:10px;border-radius:99px;background:var(--s3);overflow:hidden;margin:10px 0 6px}.lvbar b{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--aqua2),var(--aqua))}
+.lvsim{width:100%;accent-color:var(--aqua);margin:8px 0 2px}
+.stages{list-style:none;margin:0;padding:0;display:grid;gap:8px}.stages li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mute)}.stages li b{color:var(--ink);font-weight:600}
+.stages i{flex:none;width:10px;height:10px;border-radius:50%;margin-top:5px;background:var(--s3)}.stages li.on i{background:var(--warm)}
+.note{border:1px dashed var(--line);border-radius:18px;padding:12px 14px;font-size:13px;color:var(--mute);margin-top:14px}
+.thcw .num{font-family:"Instrument Serif",serif;font-size:34px;color:var(--lav)}
 .empty{padding:18px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:18px}
 .crave{margin-top:14px;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px;background:linear-gradient(135deg,rgba(123,224,211,.14),rgba(247,169,212,.1));border:1px solid rgba(123,224,211,.25);width:100%;text-align:left}
 .crave .o{flex:none;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c9fff6,var(--aqua2));box-shadow:0 0 20px rgba(123,224,211,.5);animation:breathe 8s ease-in-out infinite}
@@ -186,7 +201,7 @@ summary{min-height:44px;display:flex;align-items:center;font-weight:600;cursor:p
 .toast{position:fixed;left:50%;bottom:calc(var(--safeB) + 92px);transform:translate(-50%,20px);opacity:0;z-index:50;display:flex;align-items:center;gap:14px;padding:10px 10px 10px 16px;border-radius:999px;background:#2c2638;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.4);transition:all .25s;max-width:calc(100% - 32px);font-size:15px;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .toast button{min-height:36px;padding:0 14px;border-radius:999px;background:var(--aqua);color:#06201d;font-weight:700}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);max-width:540px;margin:0 auto;padding:6px 8px calc(var(--safeB) + 6px);background:rgba(16,14,22,.82);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-top:1px solid var(--line)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);max-width:540px;margin:0 auto;padding:6px 8px calc(var(--safeB) + 6px);background:rgba(16,14,22,.82);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-top:1px solid var(--line)}
 .tabs a{display:grid;justify-items:center;gap:2px;min-height:52px;padding-top:6px;color:var(--dim);text-decoration:none;font-size:12px;font-weight:600}
 .tabs a svg{width:24px;height:24px}
 .tabs a[aria-current=page]{color:var(--ink)}
@@ -209,6 +224,7 @@ summary{min-height:44px;display:flex;align-items:center;font-weight:600;cursor:p
   <a href="#" data-v="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z"/><path d="M6.6 10h10.8"/></svg>Tonight</a>
   <a href="#week" data-v="week"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Week</a>
   <a href="#calm" data-v="calm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9" opacity=".5"/></svg>Calm</a>
+  <a href="#liver" data-v="liver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M2.5 10.5C2.5 6.5 6 4.5 11 4.6c5 .1 9.8 1.2 10.4 3.4.4 1.6-1.3 2.4-3.4 3.4-2.6 1.3-4.6 3.4-6.6 5.4-1.8 1.8-4.2 2.6-6 1.4-1.9-1.2-2.9-4.2-2.9-7.7z"/><path d="M12.5 4.8c.2 2.8 1 5.2 2 7"/></svg>Liver</a>
   <a href="#me" data-v="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Plan</a>
 </nav>
 <div class="scrim" id="scrim" hidden></div>
@@ -258,12 +274,13 @@ const GLY={
  highball:'<rect x="9" y="7" width="14" height="20" rx="2"/><path d="M18 3l-2 12M9 13h14"/>',
  shot:'<path d="M10 10h12l-1.5 16h-9z"/><path d="M10.6 16h10.8"/>',
  star:'<path d="M16 5l3 7 7 .6-5.4 4.6 1.7 7L16 20.5 9.7 24.2l1.7-7L6 12.6l7-.6z"/>',
- plus:'<path d="M16 7v18M7 16h18"/>'};
+ plus:'<path d="M16 7v18M7 16h18"/>',
+ leaf:'<path d="M16 28V15"/><path d="M16 15C10.5 14.5 7 10.5 7 4.5c5.5 0 9 3.5 9 10.5zM16 15c5.5-.5 9-4.5 9-10.5-5.5 0-9 3.5-9 10.5z"/><path d="M16 21c-3 0-6-1.5-8-4M16 21c3 0 6-1.5 8-4"/>'};
 const gly=(k,c='')=>`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${c}" aria-hidden="true">${GLY[k]||GLY.star}</svg>`;
 
 /* ---------- state ---------- */
 const LS='ebb.v1';
-const DEF=()=>({v:1,setup:false,settings:{weekly:10,daily:4,dryTarget:2,dryDays:[],baseline:14,price:10,tone:'gentle',cur:'$',why:'',since:0,prices:{},u:0},custom:[],drinks:[],events:[],nights:[]});
+const DEF=()=>({v:1,setup:false,settings:{weekly:10,daily:4,dryTarget:2,dryDays:[],baseline:14,price:10,tone:'gentle',cur:'$',why:'',since:0,prices:{},thcMg:10,lines:'m',u:0},custom:[],drinks:[],events:[],nights:[]});
 function normalize(j){const d=DEF();j=j||{};return{v:1,setup:!!j.setup,settings:{...d.settings,...(j.settings||{}),prices:{...((j.settings||{}).prices||{})}},custom:j.custom||[],drinks:j.drinks||[],events:j.events||[],nights:j.nights||[]}}
 let S=DEF();let hadLocal=false;
 try{const j=JSON.parse(localStorage.getItem(LS)||'null');if(j&&j.v){S=normalize(j);hadLocal=true}}catch(e){}
@@ -272,7 +289,9 @@ const byT=(a,b)=>(a.t||0)-(b.t||0)||String(a.id).localeCompare(String(b.id));
 function mergeList(a=[],b=[]){const m=new Map();for(const x of a)m.set(x.id,x);for(const x of b){const y=m.get(x.id);if(!y||(x.u||0)>(y.u||0))m.set(x.id,x)}return[...m.values()].sort(byT)}
 function merge(a,b){const bn=(b.settings.u||0)>(a.settings.u||0);return{v:1,setup:bn?b.setup:a.setup,settings:(b.settings.u||0)>(a.settings.u||0)?b.settings:a.settings,custom:mergeList(a.custom,b.custom),drinks:mergeList(a.drinks,b.drinks),events:mergeList(a.events,b.events),nights:mergeList(a.nights,b.nights)}}
 function commit(){const cut=now()-60*DAY;for(const k of['drinks','events','nights','custom'])S[k]=S[k].filter(x=>!x.del||(x.u||0)>cut).sort(byT);saveLocal();queueSync();render()}
-const D=()=>S.drinks.filter(x=>!x.del);
+const D=()=>S.drinks.filter(x=>!x.del&&x.kind!=='thc');
+const TH=()=>S.drinks.filter(x=>!x.del&&x.kind==='thc');
+const ALL=()=>S.drinks.filter(x=>!x.del);
 const allP=()=>PRESETS.concat(S.custom.filter(c=>!c.del));
 const findP=id=>allP().find(p=>p.id===id)||PRESETS[1];
 
@@ -322,7 +341,7 @@ function moodLine(m,s){const b=S.settings.tone==='blunt',left=pl(Math.max(0,s.le
  proud:b?`${s.dryStreak} dry days straight. That's the plan working.`:`Lotl's beaming about your ${s.dryStreak}-day dry streak.`,
  ok:b?`${left} left this week. Spend them on purpose.`:`Steady. ${left} left this week.`,
  wary:b?`Almost out. ${left} left, then you're over.`:`Getting close. ${left} left this week.`,
- wilt:b?`${pl(s.oStd,'drink')} over plan. That cost ${money(s.oSpend)} and ${Math.round(s.oCal)} cal.`:`The water's cloudy. Every drink you skip from here still clears it.`}[m]}
+ wilt:b?`${pl(s.oStd,'drink')} over plan. That's ${Math.round(s.oCal)} calories you didn't plan for.`:`The water's cloudy. Every drink you skip from here still clears it.`}[m]}
 function waterColors(r){const stops=[[0,[123,224,211]],[.7,[110,170,220]],[1,[190,140,215]],[1.35,[255,93,99]]];r=Math.max(0,Math.min(1.35,r));let i=0;while(i<stops.length-2&&r>stops[i+1][0])i++;const[a,ca]=stops[i],[b,cb]=stops[i+1];const k=(r-a)/(b-a);const c=ca.map((v,j)=>Math.round(v+(cb[j]-v)*k));return[`rgba(${c},.34)`,`rgba(${c.map(v=>v*.45|0)},.55)`]}
 
 /* ---------- Lotl the axolotl ---------- */
@@ -360,14 +379,14 @@ function tank(s){const m=mood(s),[w1,w2]=waterColors(s.r),st=S.settings;const pc
  return `<section class="tank m-${m}" style="--w1:${w1};--w2:${w2}" aria-label="This week"><div class="water"><svg viewBox="0 0 400 16" preserveAspectRatio="none"><path d="M0 8Q50 0 100 8T200 8T300 8T400 8V16H0z"/></svg></div><div class="murk"></div>${bubs}
  <div class="tgrid"><div><div class="lbl">This week</div><div class="big num ${over?'overc':''}">${f1(s.wStd)}<small>/ ${st.weekly}</small></div>
  <div class="meter" role="img" aria-label="${f1(s.wStd)} of ${st.weekly} standard drinks"><b class="${over?'over':''}" style="width:${pct}%;--lim:${pct?lim/pct*100:0}%"></b><i style="left:calc(${lim}% - 1px)"></i></div>
- <div class="tline">${over?`<span class="overc">${f1(s.oStd)} over · ${money(s.oSpend)} · ${Math.round(s.oCal)} cal</span>`:`${f1(Math.max(0,s.left))} left`} · <span style="white-space:nowrap">${s.dry>=st.dryTarget&&st.dryTarget>0?'dry-day target met':`dry days ${s.dry} of ${st.dryTarget}`}</span></div></div>
+ <div class="tline">${over?`<span class="overc">${f1(s.oStd)} over · ${Math.round(s.oCal)} extra cal</span>`:`${f1(Math.max(0,s.left))} left · ${Math.round(s.wCal).toLocaleString()} cal`}<span style="display:block;white-space:nowrap">${s.dry>=st.dryTarget&&st.dryTarget>0?'dry-day target met':`dry days ${s.dry} of ${st.dryTarget}`}</span></div></div>
  ${lotl(m)}</div><div class="moodline">${esc(moodLine(m,s))}</div></section>`}
 function vToday(){const s=stats(),st=S.settings,n=activeNight();
- const tiles=allP().map(p=>`<button class="tile" data-add="${esc(p.id)}" aria-label="Log ${esc(p.name)}, ${f1(stdOf(p.ml,p.abv))} standard drinks">${gly(p.g||'star')}<span>${esc(p.name)}</span><em>${f1(stdOf(p.ml,p.abv))}</em></button>`).join('')+`<button class="tile" data-act="custom" aria-label="Log another drink">${gly('plus')}<span>Other</span><em>any size</em></button>`;
- const tl=s.today.slice().reverse();let acc=s.wStd;const overIds=new Set();{let a=0;for(const x of s.week){a+=x.std;if(a>st.weekly+1e-6)overIds.add(x.id)}}
- const list=tl.length?`<ul class="log">${tl.map(x=>`<li><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${clock(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${Math.round(x.ml)} ml · ${f1(x.abv)}% · ${money(x.price)}${x.place==='bar'?' · out':''}</div></div><div class="s ${overIds.has(x.id)?'over':''}">${f1(x.std)}</div></button></li>`).join('')}</ul>`:`<div class="empty">${st.dryDays.includes(s.dayIdx)?'A planned dry day. Lotl approves.':'Nothing logged today.'}</div>`;
- const todayLine=`<div class="today"><div><div class="lbl">Today</div><div><span class="num" style="font-size:34px">${f1(s.tStd)}</span> <span class="mute">of ${st.daily} · ${money(s.tSpend)}</span></div></div>${n?'':`<button class="pill" data-act="planNight">${moon()}Going out?</button>`}</div>`;
- return header()+tank(s)+(n?nightCard(n):'')+todayLine+`<h2>Log a drink</h2><div class="grid">${tiles}</div><p class="hint">Tap to log${n?' at bar prices':''}. Hold a drink to change its size or strength.</p>`+
+ const tiles=allP().map(p=>`<button class="tile" data-add="${esc(p.id)}" aria-label="Log ${esc(p.name)}, ${f1(stdOf(p.ml,p.abv))} standard drinks">${gly(p.g||'star')}<span>${esc(p.name)}</span><em>${f1(stdOf(p.ml,p.abv))} · ${calFor(p,p.ml,p.abv)} cal</em></button>`).join('')+`<button class="tile thc" data-add="thc" aria-label="Log a THC drink, ${f1(S.settings.thcMg||10)} milligrams">${gly('leaf')}<span>THC drink</span><em>${f1(S.settings.thcMg||10)} mg</em></button><button class="tile" data-act="custom" aria-label="Log another drink">${gly('plus')}<span>Other</span><em>any size</em></button>`;
+ const tl=ALL().filter(x=>x.t>=s.ds).reverse(),tThc=sum(tl.filter(x=>x.kind==='thc'),'mg');let acc=s.wStd;const overIds=new Set();{let a=0;for(const x of s.week){a+=x.std;if(a>st.weekly+1e-6)overIds.add(x.id)}}
+ const list=tl.length?`<ul class="log">${tl.map(x=>x.kind==='thc'?thcRow(x,clock(x.t)):`<li><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${clock(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${Math.round(x.ml)} ml · ${f1(x.abv)}% · ${x.cal} cal${x.place==='bar'?' · out':''}</div></div><div class="s ${overIds.has(x.id)?'over':''}">${f1(x.std)}</div></button></li>`).join('')}</ul>`:`<div class="empty">${st.dryDays.includes(s.dayIdx)?'A planned dry day. Lotl approves.':'Nothing logged today.'}</div>`;
+ const todayLine=`<div class="today"><div><div class="lbl">Today</div><div><span class="num" style="font-size:34px">${f1(s.tStd)}</span> <span class="mute">of ${st.daily}</span>${s.tStd>0?`<span class="mute"> · ${Math.round(sum(s.today,'cal'))} cal</span>`:''}${tThc?`<span class="mute"> · ${f1(tThc)} mg THC</span>`:''}</div></div>${n?'':`<button class="pill" data-act="planNight">${moon()}Going out?</button>`}</div>`;
+ return header()+tank(s)+(n?nightCard(n):'')+todayLine+`<h2>Log a drink</h2><div class="grid">${tiles}</div><p class="hint">Tap to log. Hold to change size or strength. THC is tracked apart from alcohol.</p>`+
  `<button class="crave" data-go="calm"><span class="o"></span><span><b>Craving one?</b><small>Ride it out for 90 seconds first.</small></span></button>`+
  `<h2>Today's log</h2>${list}`}
 const moon=()=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
@@ -385,22 +404,23 @@ function vWeek(){const s=stats(),st=S.settings,L=D(),mx=Math.max(st.daily*1.5,..
  const days=WD.map((w,i)=>{const a=addDays(s.ws,i),b=addDays(s.ws,i+1),v=sum(L.filter(x=>x.t>=a&&x.t<b),'std'),fut=a>s.ds,cur=a===s.ds,plan=st.dryDays.includes(i);
   const inner=v>0?`<b class="${v>st.daily+1e-6?'o':''}" style="width:${Math.min(100,v/mx*100)}%"></b>`:fut?(plan?'<span class="dry plan">Dry day planned</span>':''):a<s.since?'':cur?'<span class="dry">Dry so far</span>':'<span class="dry">Dry</span>';
   return `<div class="day ${cur?'cur':''}"><span class="w">${w}</span><div class="bar">${inner}<i style="left:${st.daily/mx*100}%"></i></div><span class="v">${v>0?f1(v):''}</span></div>`}).join('');
- const saved=s.usualSpend-s.wSpend,calS=s.usualCal-s.wCal;
+ const usualStd=st.baseline*Math.max(0,(s.t-Math.max(s.ws,s.since)))/(7*DAY),fewerW=usualStd-s.wStd,calS=s.usualCal-s.wCal;
  const urges=S.events.filter(e=>!e.del&&e.t>=s.ws),urgeN=urges.filter(e=>e.type==='urge').length,swapN=urges.filter(e=>e.type==='swap').length;
  const tilesH=`<div class="tiles">
  <div class="stat"><span class="lbl">Dry days</span><span class="num ${s.dry>=st.dryTarget?'aq':''}">${s.dry}<span class="mute" style="font-size:.5em"> of ${st.dryTarget}</span></span><small>${s.dry>=st.dryTarget?'Target met this week':s.todayDry?'Keep today dry to add one':`${Math.max(0,st.dryTarget-s.dry)} more to go`}</small></div>
- <div class="stat"><span class="lbl">${saved>=0?'Saved':'Over usual'}</span><span class="num ${saved>=0?'aq':'overc'}">${money(saved)}</span><small>${money(s.wSpend)} spent vs your usual week</small></div>
- <div class="stat"><span class="lbl">Calories</span><span class="num">${Math.round(s.wCal).toLocaleString()}</span><small>${calS>=0?`${Math.round(calS).toLocaleString()} fewer than usual`:`${Math.round(-calS).toLocaleString()} more than usual`}</small></div>
+ <div class="stat"><span class="lbl">${fewerW>=0?'Fewer than usual':'More than usual'}</span><span class="num ${fewerW>=0?'aq':'overc'}">${f1(Math.abs(fewerW))}</span><small>Drinks vs your usual pace this week</small></div>
+ <div class="stat"><span class="lbl">${calS>=0?'Calories avoided':'Extra calories'}</span><span class="num ${calS>=0?'aq':'overc'}">${Math.round(Math.abs(calS)).toLocaleString()}</span><small>vs your usual week</small></div>
  <div class="stat"><span class="lbl">Urges ridden out</span><span class="num">${urgeN+swapN}</span><small>${swapN} swapped for water</small></div></div>`;
- const all=S.events.filter(e=>!e.del),totalStd=sum(L,'std'),weeksIn=Math.max(0,(now()-s.since)/(7*DAY)),fewer=st.baseline*weeksIn-totalStd,savedAll=st.baseline*st.price*weeksIn-sum(L,'price');
- const recent=L.slice(-25).reverse();
+ const all=S.events.filter(e=>!e.del),totalStd=sum(L,'std'),weeksIn=Math.max(0,(now()-s.since)/(7*DAY)),fewer=st.baseline*weeksIn-totalStd,calAll=st.baseline*150*weeksIn-sum(L,'cal');
+ const recent=ALL().slice(-25).reverse(),thAll=TH(),thW=thAll.filter(x=>x.t>=s.ws&&x.t<s.we),thL=thAll.filter(x=>x.t>=addDays(s.ws,-7)&&x.t<s.ws);
+ const thcCard=thAll.length?`<div class="card thcw" style="margin-top:10px"><div class="lbl">THC this week</div><div><span class="num">${f1(sum(thW,'mg'))}</span> <span class="mute">mg · ${thW.length} drink${thW.length===1?'':'s'}</span></div><p class="hint" style="margin:4px 0 0">Last week ${f1(sum(thL,'mg'))} mg. Kept apart from your alcohol numbers, so you can see if one replaces the other.</p></div>`:'';
  return header()+`<h1>${esc(title)}</h1><div class="card"><div class="days">${days}</div><p class="hint" style="margin:10px 0 0">The line marks your daily limit of ${st.daily}.</p></div>
- <h2>This week</h2>${tilesH}
+ <h2>This week</h2>${tilesH}${thcCard}
  <h2>Last 8 weeks</h2><div class="card"><div class="fig" id="trend"></div></div>
  <h2>Streaks</h2><div class="tiles"><div class="stat"><span class="lbl">Dry streak</span><span class="num">${s.dryStreak}<span class="mute" style="font-size:.5em"> day${s.dryStreak===1?'':'s'}</span></span><small>Best ${s.bestDry}${s.todayDry?' · today counts if it stays dry':''}</small></div><div class="stat"><span class="lbl">Weeks on plan</span><span class="num">${s.weeksOn}</span><small>Finished weeks in a row at or under ${st.weekly}</small></div></div>
- ${weeksIn>=1?`<h2>Since you started</h2><div class="tiles"><div class="stat"><span class="lbl">Drinks fewer</span><span class="num ${fewer>=0?'aq':'overc'}">${f1(Math.abs(fewer))}</span><small>${fewer>=0?'than your usual':'more than your usual'}</small></div><div class="stat"><span class="lbl">Money</span><span class="num ${savedAll>=0?'aq':'overc'}">${money(savedAll)}</span><small>${savedAll>=0?'kept in your pocket':'more than usual'}</small></div></div>`:''}
+ ${weeksIn>=1?`<h2>Since you started</h2><div class="tiles"><div class="stat"><span class="lbl">Drinks fewer</span><span class="num ${fewer>=0?'aq':'overc'}">${f1(Math.abs(fewer))}</span><small>${fewer>=0?'than your usual':'more than your usual'}</small></div><div class="stat"><span class="lbl">Calories</span><span class="num ${calAll>=0?'aq':'overc'}">${Math.round(Math.abs(calAll)).toLocaleString()}</span><small>${calAll>=0?'skipped vs your usual':'more than your usual'}</small></div></div>`:''}
  <h2>Patterns</h2>${patterns()}
- <details><summary>Recent drinks</summary>${recent.length?`<ul class="log">${recent.map(x=>`<li><button data-edit="${x.id}"><time>${mdate(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${clock(x.t)} · ${money(x.price)}</div></div><div class="s">${f1(x.std)}</div></button></li>`).join('')}</ul>`:'<p class="mute">Nothing yet.</p>'}</details>`}
+ <details><summary>Recent drinks</summary>${recent.length?`<ul class="log">${recent.map(x=>x.kind==='thc'?thcRow(x,mdate(x.t),clock(x.t)):`<li><button data-edit="${x.id}"><time>${mdate(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${clock(x.t)} · ${x.cal} cal</div></div><div class="s">${f1(x.std)}</div></button></li>`).join('')}</ul>`:'<p class="mute">Nothing yet.</p>'}</details>`}
 function patterns(){const t=now(),from=t-28*DAY,L=D().filter(x=>x.t>=from);if(L.length<6)return`<div class="empty">Patterns show up after a few more drinks are logged.</div>`;
  const tot=sum(L,'std'),out=[];const wd=Array(7).fill(0);for(const x of L)wd[wdOf(dayStart(x.t))]+=x.std;const top=wd.indexOf(Math.max(...wd));out.push(`${WDL[top]} carry ${Math.round(wd[top]/tot*100)}% of your drinking. That's the night to plan ahead for.`);
  const bar=sum(L.filter(x=>x.place==='bar'),'std');out.push(bar/tot>=.5?`${Math.round(bar/tot*100)}% of your drinks happen out. Set a night plan before you leave.`:`${Math.round(100-bar/tot*100)}% of your drinks happen at home. Keeping less in the house is the easiest lever.`);
@@ -438,12 +458,10 @@ function vMe(){const st=S.settings;const dd=WD.map((w,i)=>`<button data-act="dry
  <div class="setrow"><div class="t">Daily limit<small>Most in any one day</small></div>${stepper('daily',st.daily)}</div>
  <div class="setrow"><div class="t">Dry days<small>Per week</small></div>${stepper('dryTarget',st.dryTarget)}</div>
  <div class="field"><span class="lbl">Planned dry days (optional)</span><div class="seg">${dd}</div></div>
- <div class="setrow"><div class="t">Your usual week<small>Drinks a week before Ebb, for savings</small></div>${stepper('baseline',st.baseline)}</div>
- <div class="setrow"><div class="t">Usual price per drink<small>For your usual week</small></div>${stepper('price',st.price)}</div></div>
+ <div class="setrow"><div class="t">Your usual week<small>Drinks a week before Ebb, for comparisons</small></div>${stepper('baseline',st.baseline)}</div></div>
  <h2>How I nudge you</h2><div class="card"><div class="seg"><button data-act="tone" data-v="gentle" aria-pressed="${st.tone==='gentle'}">Gentle</button><button data-act="tone" data-v="blunt" aria-pressed="${st.tone==='blunt'}">Blunt</button></div>
  <p class="hint">${st.tone==='blunt'?'Blunt: plain numbers and no cushioning when you go over. Still never about you as a person.':'Gentle: the same numbers, said kindly.'}</p>
  <div class="field"><label for="why">Why you're cutting down</label><textarea id="why" data-set="why" maxlength="160" placeholder="Sleep better, sharper mornings, more present at home">${esc(st.why)}</textarea></div></div>
- <h2>Prices</h2><details><summary>Edit drink prices</summary><table class="ptab"><tr><td></td><td class="dim">Home</td><td class="dim">Out</td></tr>${pr}</table><div class="field"><label for="cur">Currency symbol</label><input id="cur" type="text" maxlength="3" data-set="cur" value="${esc(st.cur)}"></div></details>
  ${cust.length?`<h2>Your drinks</h2><div class="card">${cust.map(c=>`<div class="setrow"><div class="t">${esc(c.name)}<small>${Math.round(c.ml)} ml · ${f1(c.abv)}% · ${f1(stdOf(c.ml,c.abv))} std</small></div><button class="pill ghost" data-act="rmCustom" data-id="${c.id}">Remove</button></div>`).join('')}</div>`:''}
  <h2>Your data</h2><div class="card"><p id="syncl" class="mute" style="margin:0 0 12px">${syncLabel()}</p><p class="hint" style="margin-top:0">${sync.state==='local'?'Stays in this browser. Export a backup now and then.':'Kept privately in your Claude account, so it follows you to your Mac. Nobody else can read it.'}</p>
  <div class="btns"><button class="pill full" data-act="export">Back up or move data</button><div class="hold" role="button" tabindex="0" data-hold="reset"><span class="f"></span><span>Hold to erase everything</span></div></div></div>
@@ -451,22 +469,96 @@ function vMe(){const st=S.settings;const dd=WD.map((w,i)=>`<button data-act="dry
 const LIM={weekly:[0,70,1],daily:[1,20,1],dryTarget:[0,7,1],baseline:[0,100,1],price:[0,100,1]};
 const stepper=(k,v,ob)=>`<div class="step"><button data-act="step" data-k="${k}" data-d="-1" ${ob?'data-ob="1"':''} aria-label="Less">−</button><output>${v}</output><button data-act="step" data-k="${k}" data-d="1" ${ob?'data-ob="1"':''} aria-label="More">+</button></div>`;
 
+/* ---------- THC ---------- */
+function makeThc(o){const n=activeNight();return{id:uid(),t:o.t??now(),kind:'thc',pid:'thc',name:o.name||'THC drink',mg:r2(+(o.mg??S.settings.thcMg??10)),ml:0,abv:0,std:0,cal:0,price:0,place:n?'bar':'home',u:now()}}
+function thcWeek(){const ws=weekStart(now());return sum(TH().filter(x=>x.t>=ws),'mg')}
+function logThc(d){S.drinks.push(d);commit();const el=document.querySelector('[data-add="thc"]');if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}
+ toast(`${esc(d.name)} logged · ${f1(thcWeek())} mg THC this week`,()=>{d.del=true;d.u=now();commit()})}
+function thcRow(x,when,sub){return`<li><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${when}</time><div><div class="n">${esc(x.name)}</div><div class="d">${sub?sub+' · ':''}THC · not counted as alcohol</div></div><div class="s thc">${f1(x.mg)}<small>mg</small></div></button></li>`}
+function thcSheet(x,isNew){const tv=new Date(x.t-new Date(x.t).getTimezoneOffset()*MIN).toISOString().slice(0,16);
+ openSheet(`<h3>${isNew?'Log a THC drink':'Edit THC drink'}</h3><form id="tf"><div class="field"><label for="tn">Name</label><input id="tn" type="text" maxlength="40" value="${esc(x.name)}"></div>
+ <div class="field"><label for="tmg">THC in mg</label><div class="seg" style="margin-bottom:6px">${[2.5,5,10,20].map(v=>`<button type="button" data-act="tmg" data-v="${v}">${v} mg</button>`).join('')}</div><input id="tmg" type="number" inputmode="decimal" min="0.5" max="500" step="0.5" value="${x.mg}"></div>
+ <div class="field"><label for="tt">When</label><input id="tt" type="datetime-local" value="${tv}"></div>
+ <label class="setrow" style="cursor:pointer"><span class="t">Use this dose for the button<small>Right now it logs ${f1(S.settings.thcMg||10)} mg</small></span><input id="tdef" type="checkbox" style="width:24px;height:24px;accent-color:var(--aqua)"></label>
+ <p class="hint">THC is tracked on its own. It doesn't count toward your drink limits, dry days or the liver view.</p>
+ <div class="btns"><button class="pill aqua full" type="submit">${isNew?'Log it':'Save'}</button>${isNew?'':`<button class="pill ghost full" type="button" data-act="delDrink" style="color:var(--over)">Delete</button>`}</div></form>`,()=>{
+  $('#sheet').dataset.edit=isNew?'':x.id;
+  $('#tf').onsubmit=e=>{e.preventDefault();const mg=Math.max(.5,Math.min(500,+$('#tmg').value||10)),o={name:$('#tn').value.trim()||'THC drink',mg:r2(mg),t:new Date($('#tt').value).getTime()||now()};
+   if($('#tdef').checked){S.settings.thcMg=o.mg;S.settings.u=now()}
+   closeSheet();if(isNew)logThc(makeThc(o));else{Object.assign(x,o,{u:now()});commit();toast('Saved')}}})}
+
+/* ---------- liver ---------- */
+const LP='M30 92C28 47 78 22 140 25C202 28 258 40 281 62C293 73 286 87 268 93C236 104 201 118 171 140C141 162 101 179 69 168C39 157 31 131 30 92Z';
+const DROPS=[[118,95,9],[150,105,8],[70,80,8],[80,125,7],[140,62,7],[190,64,7],[95,60,6],[165,55,6],[105,130,6],[180,88,6],[60,105,5],[215,60,5],[240,67,5],[160,126,5],[130,142,5],[205,82,4],[95,100,4],[122,48,4]];
+function mixC(a,b,t){const h=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16));const A=h(a),B=h(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')}
+function liverState(extra=0){const L=D(),st=S.settings,ds=dayStart(now()),since=dayStart(st.since||now());
+ const g=st.lines==='f'?{w:7,d:3,who:"women's"}:{w:14,d:4,who:"men's"};
+ const last=L.length?L[L.length-1].t:0,lastDay=last?dayStart(last):0,end=last?addDays(lastDay,1):since,start=addDays(end,-28);
+ const by=new Map();for(const x of L)if(x.t>=start&&x.t<end){const k=dayStart(x.t);by.set(k,(by.get(k)||0)+x.std)}
+ let tot=0,heavy=0;for(const v of by.values()){tot+=v;if(v>g.d+1e-6)heavy++}
+ const pre=Math.max(0,Math.min(28,Math.round((since-start)/DAY)));tot+=(+st.baseline||0)/7*pre;
+ const avgW=tot/4,af=Math.max(0,Math.round(((last?ds-lastDay:ds-since))/DAY));
+ const fat=Math.min(1,Math.max(0,(avgW-g.w*.5)/(g.w*1.75),Math.max(0,heavy-1)/12));
+ const days=af+extra,rec=Math.min(1,days/42),shown=fat*(1-rec);
+ return{g,avgW,heavy,pre,af,days,fat,rec,shown,over:avgW>g.w+1e-6||heavy>0,overW:avgW>g.w+1e-6,hasLast:!!last}}
+let lvN=0;function liverSVG(f,rec){const N=DROPS.length,u=++lvN;
+ const drops=DROPS.map(([x,y,r],i)=>{const o=Math.max(0,Math.min(1,f*N*1.15-i));return o>0?`<circle cx="${x}" cy="${y}" r="${(r*(.7+.5*f)).toFixed(1)}" fill="url(#lvD${u})" opacity="${(o*.9).toFixed(2)}"/>`:''}).join('');
+ const red=f>.6?[[100,85,22],[170,70,18],[90,140,16]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#e0505f" opacity="${((f-.6)*.55).toFixed(2)}" filter="url(#lvSoft${u})"/>`).join(''):'';
+ const halo=rec>0&&f>0?((1-f)*.3+rec*.5):0;
+ return`<svg viewBox="-10 0 320 200" class="liver" role="img" aria-label="Illustrated liver"><defs><linearGradient id="lvG${u}" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="${mixC('#cf5d74','#ecca72',f)}"/><stop offset="1" stop-color="${mixC('#6e2238','#a9782f',f)}"/></linearGradient><radialGradient id="lvD${u}"><stop offset="0" stop-color="#fff3c4"/><stop offset=".6" stop-color="#f6dc8e" stop-opacity=".85"/><stop offset="1" stop-color="#f6dc8e" stop-opacity="0"/></radialGradient><clipPath id="lvC${u}"><path d="${LP}"/></clipPath><filter id="lvBlur${u}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter><filter id="lvSoft${u}"><feGaussianBlur stdDeviation="6"/></filter></defs>
+ <ellipse cx="155" cy="186" rx="120" ry="8" fill="#000" opacity=".35"/>
+ <g class="lvb" style="transform:scale(${(1+.07*f).toFixed(3)});transform-origin:155px 100px">
+ <path d="${LP}" fill="none" stroke="#7be0d3" stroke-width="8" opacity="${halo.toFixed(2)}" filter="url(#lvBlur${u})"/>
+ <path d="${LP}" fill="url(#lvG${u})"/>
+ <g clip-path="url(#lvC${u})">${red}${drops}<ellipse cx="100" cy="52" rx="58" ry="15" fill="#fff" opacity="${(.2*(1-f*.5)).toFixed(2)}" transform="rotate(-10 100 52)"/><path d="M30 120C70 160 120 165 160 150" stroke="#000" stroke-width="18" opacity=".12" fill="none" filter="url(#lvSoft${u})"/></g>
+ <path d="M146 27C147 62 157 96 174 136" stroke="rgba(0,0,0,.22)" stroke-width="2" fill="none" stroke-linecap="round"/>
+ <path d="${LP}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/></g></svg>`}
+function liverWords(L){const s=L.shown;
+ const label=s<.06?'Clear':s<.3?'A little fat building':s<.65?'Fat building up':'Carrying a heavy load';
+ const head=L.fat>.06&&L.days>=1&&L.rec>0?(L.rec>=1?'Recovered, if there was no scarring':`Recovering · day ${L.days} of 42`):label;
+ const line=s<.06?(L.fat>.06?'Six alcohol-free weeks is about how long early fat takes to clear.':'Nothing in your recent logs points to fat building up.')
+  :L.fat>=.65&&L.rec<.15?"At this level, fat builds up in most livers. It's also the stage that clears best when you stop."
+  :L.overW?'Your recent weekly drinking is over the line where fat starts to build in the liver.':L.heavy>1?'Heavy days are where fat starts to build. Fewer of them clears it.':'Close to the line where fat starts to build.';
+ return{label,head,line}}
+function vLiver(){const L=liverState(),st=S.settings,w=liverWords(L);
+ const per=L.af>1&&L.hasLast?'In the 4 weeks before your last drink':'Last 4 weeks';
+ return header()+`<h1>Your liver</h1><div class="card"><div class="liverfig" id="lvFig">${liverSVG(L.shown,L.rec)}</div><div class="lvstate" id="lvState"><b>${esc(w.head)}</b><span>${esc(w.line)}</span></div></div>
+ <h2>Alcohol-free run</h2><div class="card"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><span class="num" style="font-family:'Instrument Serif',serif;font-size:34px">${L.af}<span class="mute" style="font-size:.5em"> day${L.af===1?'':'s'}</span></span><span class="mute">goal 42</span></div>
+ <div class="lvbar"><b style="width:${Math.min(100,L.af/42*100)}%"></b></div>
+ <p class="hint" style="margin:0">Fat from heavy drinking usually clears after about 4 to 6 weeks without alcohol, as long as there's no scarring. ${L.af>=42?'You are past that point.':'Today counts once it ends dry.'}</p></div>
+ <h2>What if</h2><div class="card"><div class="lbl" id="lvSimL">Slide to see it after more alcohol-free days</div><input class="lvsim" id="lvSim" type="range" min="0" max="42" step="1" value="0" aria-label="Extra alcohol-free days"></div>
+ <h2>What it's based on</h2><div class="card"><div class="facts" style="margin:0"><div><span>${per}</span><b>${f1(L.avgW)} a week</b></div><div><span>Days over ${L.g.d}</span><b class="${L.heavy?'overc':''}">${L.heavy}</b></div></div>
+ <p class="hint">Heavy drinking line (NIAAA, ${L.g.who}): more than ${L.g.w} a week or more than ${L.g.d} in a day. You're ${L.over?'<b class="overc">over it</b>':'<b class="aq">under it</b>'}.${L.pre?' Includes your usual week from before you started.':''}</p>
+ <div class="seg" style="margin-top:10px"><button data-act="lines" data-v="m" aria-pressed="${st.lines!=='f'}">Men's lines</button><button data-act="lines" data-v="f" aria-pressed="${st.lines==='f'}">Women's lines</button></div></div>
+ <h2>How alcohol harms the liver</h2><div class="card"><ul class="stages">
+ <li class="${L.shown>=.06?'on':''}"><i></i><span><b>Fatty liver.</b> Shows up in about 9 in 10 people who drink more than about 4 drinks a day. Usually clears when drinking stops.</span></li>
+ <li><i></i><span><b>Alcohol hepatitis.</b> The liver gets inflamed. Can be serious, and often follows long heavy drinking.</span></li>
+ <li><i></i><span><b>Fibrosis.</b> Scar tissue starts to form.</span></li>
+ <li><i></i><span><b>Cirrhosis.</b> Scarring takes over and doesn't fully heal.</span></li></ul>
+ <p class="hint">Ebb only illustrates the first stage, from your logs.</p></div>
+ <div class="note">This is an illustration of risk based on what you log, not a diagnosis. Only a blood test or a liver scan shows how your liver actually is. See a doctor if you notice yellow skin or eyes, a swollen belly or pain under your right ribs.<br><br>Sources: NIAAA drinking guidelines; O'Shea et al., Alcoholic liver disease, Hepatology 2010.</div>`}
+function lvSim(v){const L=liverState(v),w=liverWords(L),f=$('#lvFig'),t=$('#lvState'),l=$('#lvSimL');if(f)f.innerHTML=liverSVG(L.shown,L.rec);
+ if(t)t.innerHTML=`<b>${esc(v?(L.fat>.06?(L.rec>=1?'Recovered, if no scarring':`Day ${L.days} of 42`):w.label):w.head)}</b><span>${esc(v?(L.fat>.06?`After ${v} more alcohol-free day${v===1?'':'s'}: ${w.label.toLowerCase()}.`:"Nothing to clear. Dry days still help everything else."):w.line)}</span>`;
+ if(l)l.textContent=v?`+${v} alcohol-free day${v===1?'':'s'}`:'Slide to see it after more alcohol-free days'}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='lvSim')lvSim(+e.target.value)});
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='lvSim'){e.target.blur();if(pendingRender)setTimeout(render,0)}});
+
 /* ---------- render ---------- */
 let pendingRender=false;
 function render(){if(!S.setup){$('#app').innerHTML='';onboard();return}
  const ae=document.activeElement;if(ae&&$('#app').contains(ae)&&/INPUT|TEXTAREA/.test(ae.tagName)){pendingRender=true;return}
  pendingRender=false;$('#obRoot').innerHTML='';
- $('#app').innerHTML=view==='week'?vWeek():view==='calm'?vCalm():view==='me'?vMe():vToday();
+ $('#app').innerHTML=view==='week'?vWeek():view==='calm'?vCalm():view==='me'?vMe():view==='liver'?vLiver():vToday();
  for(const a of document.querySelectorAll('.tabs a'))a.setAttribute('aria-current',a.dataset.v===view?'page':'false');
  if(ro){ro.disconnect();ro=null}const tr=$('#trend');if(tr){ro=new ResizeObserver(drawTrend);ro.observe(tr)}}
-function route(){const h=location.hash.replace('#','');view=['week','calm','me'].includes(h)?h:'today';if(view!=='calm'&&calm.on){calm.on=false;clearInterval(calm.timer)}render();window.scrollTo(0,0)}
+function route(){const h=location.hash.replace('#','');view=['week','calm','me','liver'].includes(h)?h:'today';if(view!=='calm'&&calm.on){calm.on=false;clearInterval(calm.timer)}render();window.scrollTo(0,0)}
 function go(v){const h=v==='today'?'':'#'+v,c=location.hash==='#'?'':location.hash;if(c===h)route();else location.hash=h}
 
 /* ---------- onboarding ---------- */
 let OB={step:0,baseline:14,weekly:10,daily:4,dryTarget:2,tone:'gentle',why:'',price:10};
 function onboard(){const st=OB.step,prog=`<div class="prog">${[0,1,2,3].map(i=>`<i class="${i<=st?'f':''}"></i>`).join('')}</div>`;let body='';
  if(st===0)body=`${lotl('glow')}<h1>Meet Lotl.</h1><p class="mute" style="font-size:18px">Lotl lives in your week. Stay under your plan and the water stays clear and Lotl glows. Go over and it clouds.</p><p class="mute">Two minutes of setup. Everything here can change later.</p><div class="spacer"></div><button class="pill aqua full" data-act="obNext">Let's set it up</button>`;
- if(st===1)body=`<h1>A usual week, honestly</h1><p class="mute">How many drinks in a typical week right now? Count a cocktail as 1.5 and a pint of IPA as nearly 2.</p><div class="field" style="justify-items:center;margin:28px 0">${stepper('baseline',OB.baseline,1)}</div><p class="mute">And what does a drink usually cost you?</p><div class="field" style="justify-items:center">${stepper('price',OB.price,1)}</div><div class="spacer"></div><button class="pill aqua full" data-act="obNext">Next</button>`;
+ if(st===1)body=`<h1>A usual week, honestly</h1><p class="mute">How many drinks in a typical week right now? Count a cocktail as 1.5 and a pint of IPA as nearly 2.</p><div class="field" style="justify-items:center;margin:28px 0">${stepper('baseline',OB.baseline,1)}</div><div class="spacer"></div><button class="pill aqua full" data-act="obNext">Next</button>`;
  if(st===2)body=`<h1>Your plan</h1><p class="mute">Starting about a third below your usual tends to stick. You can tighten it later.</p>
  <div class="setrow"><div class="t">Weekly limit<small>Your usual is ${OB.baseline}</small></div>${stepper('weekly',OB.weekly,1)}</div>
  <div class="setrow"><div class="t">Daily limit</div>${stepper('daily',OB.daily,1)}</div>
@@ -496,22 +588,21 @@ let pending=null;
 function pause(f){pending=f.d;const st=S.settings,b=st.tone==='blunt'?'b':'g',top=f.r[0],[h,sub]=COPY[top.k][b].map(x=>fillT(x,top));const s=f.s,d=f.d,nw=s.wStd+d.std,nt=s.tStd+d.std;
  const m=nw>st.weekly+1e-6?'wilt':'wary';
  openSheet(`${lotl(m,'mini')}<h3 style="text-align:center">${esc(h)}</h3><p class="mute" style="text-align:center">${esc(sub)}</p>
- <div class="facts"><div><span>This week</span><b class="${nw>st.weekly?'overc':''}">${f1(s.wStd)} → ${f1(nw)} of ${st.weekly}</b></div><div><span>Today</span><b class="${nt>st.daily?'overc':''}">${f1(s.tStd)} → ${f1(nt)} of ${st.daily}</b></div><div><span>This one costs</span><b>${money(d.price)} · ${d.cal} cal</b></div>${s.oSpend>0?`<div><span>Over plan so far</span><b class="overc">${money(s.oSpend)}</b></div>`:''}</div>
+ <div class="facts"><div><span>This week</span><b class="${nw>st.weekly?'overc':''}">${f1(s.wStd)} → ${f1(nw)} of ${st.weekly}</b></div><div><span>Today</span><b class="${nt>st.daily?'overc':''}">${f1(s.tStd)} → ${f1(nt)} of ${st.daily}</b></div><div><span>This one adds</span><b>${f1(d.std)} drinks · ${d.cal} cal</b></div>${nw>st.weekly+1e-6?`<div><span>Over your week</span><b class="overc">${f1(nw-st.weekly)} drinks · ${Math.round(s.oCal+d.cal*Math.min(1,(nw-Math.max(s.wStd,st.weekly))/d.std))} extra cal</b></div>`:''}</div>
  <div class="btns"><button class="pill aqua full" data-act="pauseRide">Ride it out · 90 seconds</button><button class="pill full" data-act="pauseSwap">Have water instead</button><div class="hold" role="button" tabindex="0" data-hold="logAnyway"><span class="f"></span><span>Hold to log ${esc(d.name)} anyway</span></div></div>`)}
 function editSheet(x,isNew){const p=findP(x.pid||'beer');const sizes=[[44,'1.5 oz'],[150,'5 oz'],[355,'12 oz'],[473,'16 oz'],[568,'20 oz'],[750,'Bottle']];
  const tv=new Date(x.t-new Date(x.t).getTimezoneOffset()*MIN).toISOString().slice(0,16);
  openSheet(`<h3>${isNew?'Log a drink':'Edit drink'}</h3><form id="ef"><div class="field"><label for="en">Name</label><input id="en" type="text" maxlength="40" value="${esc(x.name)}"></div>
  <div class="field"><label for="eml">Size in ml</label><div class="seg" style="margin-bottom:6px">${sizes.map(([v,l])=>`<button type="button" data-act="esize" data-v="${v}">${l}</button>`).join('')}</div><input id="eml" type="number" inputmode="decimal" min="10" max="2000" step="1" value="${Math.round(x.ml)}"></div>
  <div class="field"><label for="eabv">Strength <output id="eabvo">${f1(x.abv)}%</output></label><input id="eabv" type="range" min="0.5" max="60" step="0.5" value="${x.abv}"></div>
- <div class="field"><label for="epr">Price</label><input id="epr" type="number" inputmode="decimal" min="0" step="0.5" value="${x.price}"></div>
  <div class="field"><label for="et">When</label><input id="et" type="datetime-local" value="${tv}"></div>
  ${isNew?`<label class="setrow" style="cursor:pointer"><span class="t">Add to my drinks<small>Shows up as a one-tap button</small></span><input id="esave" type="checkbox" style="width:24px;height:24px;accent-color:var(--aqua)"></label>`:''}
  <div class="facts"><div><span>Standard drinks</span><b id="estd" class="num" style="font-size:24px">${f1(stdOf(x.ml,x.abv))}</b></div></div>
  <div class="btns"><button class="pill aqua full" type="submit">${isNew?'Log it':'Save'}</button>${isNew?'':`<button class="pill ghost full" type="button" data-act="delDrink" style="color:var(--over)">Delete</button>`}</div></form>`,()=>{
   const ml=$('#eml'),abv=$('#eabv'),upd=()=>{$('#eabvo').textContent=f1(+abv.value)+'%';$('#estd').textContent=f1(stdOf(+ml.value||0,+abv.value||0))};ml.oninput=upd;abv.oninput=upd;
   $('#sheet').dataset.edit=isNew?'':x.id;
-  $('#ef').onsubmit=e=>{e.preventDefault();const o={name:$('#en').value.trim()||p.name,ml:Math.max(1,+ml.value||p.ml),abv:+abv.value,price:+$('#epr').value||0,t:new Date($('#et').value).getTime()||now()};
-   if(isNew){const d=makeDrink(p,{...o,place:x.place});if($('#esave')&&$('#esave').checked){S.custom.push({id:'c'+uid(),name:o.name,ml:o.ml,abv:o.abv,cal:0,home:o.price,bar:o.price,g:'star',u:now()})}closeSheet();addDrink(d)}
+  $('#ef').onsubmit=e=>{e.preventDefault();const o={name:$('#en').value.trim()||p.name,ml:Math.max(1,+ml.value||p.ml),abv:+abv.value,t:new Date($('#et').value).getTime()||now()};
+   if(isNew){const d=makeDrink(p,{...o,place:x.place});if($('#esave')&&$('#esave').checked){S.custom.push({id:'c'+uid(),name:o.name,ml:o.ml,abv:o.abv,cal:0,home:0,bar:0,g:'star',u:now()})}closeSheet();addDrink(d)}
    else{Object.assign(x,o,{std:r2(stdOf(o.ml,o.abv)),cal:calFor(p,o.ml,o.abv),u:now()});closeSheet();commit();toast('Saved')}}})}
 function planNight(){const s=stats(),st=S.settings,def=Math.max(1,Math.min(st.daily,Math.floor(Math.max(1,s.left))));const nw={limit:def,pace:45,water:true};
  const draw=()=>openSheet(`${lotl('glow','mini')}<h3 style="text-align:center">Plan tonight before it starts</h3><p class="mute" style="text-align:center">Deciding now, with a clear head, is the single best predictor of sticking to it.</p>
@@ -532,8 +623,9 @@ let tT=0;function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${msg}<
 document.addEventListener('click',e=>{const el=e.target.closest('[data-act],[data-add],[data-edit],[data-go],.tabs a');if(!el)return;
  if(el.matches('.tabs a')){e.preventDefault();go(el.dataset.v);return}
  if(el.dataset.go){go(el.dataset.go);return}
+ if(el.dataset.add==='thc'){if(longFired){longFired=false;return}logThc(makeThc({}));return}
  if(el.dataset.add){if(longFired){longFired=false;return}addDrink(makeDrink(findP(el.dataset.add)),{tile:el.dataset.add});return}
- if(el.dataset.edit){const x=S.drinks.find(d=>d.id===el.dataset.edit);if(x)editSheet(x,false);return}
+ if(el.dataset.edit){const x=S.drinks.find(d=>d.id===el.dataset.edit);if(x)(x.kind==='thc'?thcSheet(x,false):editSheet(x,false));return}
  const a=el.dataset.act,st=S.settings;
  if(a==='close'){closeSheet();return}
  if(a==='undo'){const t=$('#toast');if(t._undo){t._undo();t._undo=null}t.classList.remove('on');return}
@@ -555,6 +647,8 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-act],[dat
  if(a==='step'){const k=el.dataset.k,[lo,hi]=LIM[k],tgt=el.dataset.ob?OB:st;tgt[k]=Math.max(lo,Math.min(hi,(+tgt[k]||0)+ +el.dataset.d));if(el.dataset.ob){if(k==='baseline'&&OB.step===1){OB.weekly=Math.max(1,Math.round(OB.baseline*.67));OB.daily=Math.max(1,Math.min(OB.daily,OB.weekly))}el.parentNode.querySelector('output').textContent=tgt[k];if(OB.step===2&&k==='weekly'){}return}st.u=now();commit();return}
  if(a==='dryDay'){const i=+el.dataset.i;st.dryDays=st.dryDays.includes(i)?st.dryDays.filter(x=>x!==i):[...st.dryDays,i].sort();st.u=now();commit();return}
  if(a==='tone'){st.tone=el.dataset.v;st.u=now();commit();return}
+ if(a==='lines'){st.lines=el.dataset.v;st.u=now();commit();return}
+ if(a==='tmg'){const i=$('#tmg');if(i)i.value=el.dataset.v;return}
  if(a==='rmCustom'){const c=S.custom.find(c=>c.id===el.dataset.id);if(c){c.del=true;c.u=now();commit()}return}
  if(a==='export'){exportSheet();return}
  if(a==='copyData'){const ta=$('#dataTa');ta.select();(navigator.clipboard?navigator.clipboard.writeText(ta.value):Promise.reject()).then(()=>toast('Copied. Paste it somewhere safe.'),()=>{try{document.execCommand('copy');toast('Copied.')}catch(_){toast('Select the text and copy it.')}});return}
@@ -579,7 +673,7 @@ function runHold(k){if(k==='logAnyway'&&pending){const d=pending;closeSheet();d.
  if(k==='reset'){const t=now();for(const k2 of['drinks','events','nights','custom'])for(const x of S[k2]){x.del=true;x.u=t}S.settings={...DEF().settings,u:t};S.setup=false;OB={step:0,baseline:14,weekly:10,daily:4,dryTarget:2,tone:'gentle',why:'',price:10};saveLocal();queueSync();location.hash='';view='today';render()}}
 let dx=0,dy=0;
 document.addEventListener('pointerdown',e=>{const h=e.target.closest('[data-hold]');if(h){e.preventDefault();holdStart(h);return}
- const t=e.target.closest('[data-add]');if(t){downEl=t;dx=e.clientX;dy=e.clientY;longFired=false;clearTimeout(longT);longT=setTimeout(()=>{longFired=true;const p=findP(t.dataset.add),n=activeNight();editSheet({pid:p.id,name:p.name,ml:p.ml,abv:p.abv,price:makeDrink(p).price,t:now(),place:n?'bar':'home'},true)},480)}});
+ const t=e.target.closest('[data-add]');if(t){downEl=t;dx=e.clientX;dy=e.clientY;longFired=false;clearTimeout(longT);longT=setTimeout(()=>{longFired=true;if(t.dataset.add==='thc'){thcSheet(makeThc({}),true);return}const p=findP(t.dataset.add),n=activeNight();editSheet({pid:p.id,name:p.name,ml:p.ml,abv:p.abv,price:makeDrink(p).price,t:now(),place:n?'bar':'home'},true)},480)}});
 for(const ev of['pointerup','pointercancel'])document.addEventListener(ev,()=>{holdEnd();clearTimeout(longT);downEl=null},true);
 document.addEventListener('pointerout',e=>{if(e.target.closest&&e.target.closest('[data-hold]')&&!(e.relatedTarget&&e.target.closest('[data-hold]').contains(e.relatedTarget)))holdEnd()});
 document.addEventListener('pointermove',e=>{if(downEl&&Math.hypot(e.clientX-dx,e.clientY-dy)>8)clearTimeout(longT)});
@@ -600,7 +694,7 @@ function ready(){if(started)return;started=true;route()}
 if(!(window.claude&&window.claude.use)||hadLocal)ready();
 initRemote();
 if(!(window.claude&&window.claude.use)&&navigator.storage&&navigator.storage.persist){navigator.storage.persist().catch(()=>{})}
-if('serviceWorker' in navigator&&window.top===window&&location.protocol==='https:'&&!/claude/.test(location.hostname)){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+if('serviceWorker' in navigator&&window.top===window&&location.protocol==='https:'&&!/claude/.test(location.hostname)){let rl=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!rl&&navigator.serviceWorker.controller){rl=true;location.reload()}});navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{})}
 }
 </script>
 </body>

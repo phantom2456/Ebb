@@ -32,7 +32,11 @@ Any static host works: GitHub Pages, Netlify, Vercel or Cloudflare Pages. Upload
 - **Day boundary** is 5 AM, so a 1 AM drink counts toward the night before. Weeks start Monday.
 - **Friction:** a drink that breaks a planned dry day, tonight's plan, your pace, your daily limit or your weekly limit opens a pause sheet: ride it out (90-second breathing), swap for water, or hold the button for 1.4 seconds to log it anyway.
 - **Tone:** Gentle or Blunt. Both show the same numbers; neither attacks the person, because shame predicts more drinking, not less.
-- **Night out:** set drinks for tonight, minutes between rounds, and water between rounds. Logging uses bar prices while a night is on.
+- **Night out:** set drinks for tonight, minutes between rounds, and water between rounds.
+- **Calories:** shown per drink, for today, for the week, in the pause sheet, and as calories avoided against your usual week. No money figures anywhere.
+- **Liver tab:** an illustrated liver driven by the 4 weeks up to your last drink (weekly average and days over the NIAAA daily line; your usual week fills in days before you started). It fades back as alcohol-free days build toward 42 (fatty liver usually clears in 4 to 6 weeks without alcohol if there's no scarring). A "What if" slider previews more dry days. Men's or women's NIAAA lines. It's labelled as an illustration, not a diagnosis.
+- **THC drinks:** logged in mg (`kind:'thc'`, `mg`), shown in the day log, history and a weekly THC total, but excluded from standard drinks, limits, dry days and the liver view (`D()` is alcohol only; `TH()` is THC only).
+- **Updates:** the service worker fetches pages fresh when online and only falls back to the cache offline, so a new push shows up on the next open.
 - **Data model** (`S` in the script): `settings`, `custom` drinks, `drinks`, `events` (urges ridden out, swaps), `nights`. Every record has an id and an update time `u`; deletes are tombstones, and merging takes the newer record per id. On claude.ai it is stored as one `main` document plus one document per month (`m2026-11`).
 
 ## Moving to native SwiftUI later
