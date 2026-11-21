@@ -335,6 +335,49 @@ summary{min-height:44px;display:flex;align-items:center;font-weight:600;cursor:p
 .liver *{transition:opacity .7s,stop-color .7s,transform .9s cubic-bezier(.22,1,.36,1)}
 .hold.soft{border-color:rgba(255,176,138,.5);color:var(--warm)}.hold.soft .f{background:rgba(255,176,138,.22)}
 @media (prefers-reduced-motion:reduce){.app.vin>*,.app.vin .log li,.app.vin .bar b,.app.vin .lvbar b,.tabs a[aria-current=page] svg{animation:none!important}.sheet,.toast,.liver *{transition:none!important}}
+
+/* features: mornings, tags, notes, review */
+.mcard{margin:14px 0 0;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border-radius:20px;background:var(--s1);border:1px solid var(--line)}
+.mcard .ic{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--s2);color:var(--aqua)}
+.mcard .ic svg{width:22px;height:22px}
+.mcard b{display:block;font-size:15px}.mcard small{color:var(--mute);font-size:13px}
+.mcard.rv{background:linear-gradient(135deg,rgba(247,169,212,.14),rgba(123,224,211,.1));border-color:rgba(247,169,212,.28)}
+.mcard .go{margin-left:auto;color:var(--mute);font-size:20px}
+.goalb{margin:14px 0 0;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:16px;border:1px dashed rgba(123,224,211,.35);font-size:14px}
+.goalb .lbl{margin:0;flex:none}.goalb b{font-weight:600}.goalb em{margin-left:auto;font-style:normal;color:var(--aqua);white-space:nowrap}
+.feel{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.feel button{display:grid;justify-items:center;gap:6px;padding:12px 4px;border-radius:18px;background:var(--s2);border:1px solid var(--line);font-size:14px;font-weight:600;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s}
+.feel button svg{width:34px;height:34px}
+.feel button[aria-pressed=true]{background:rgba(123,224,211,.16);border-color:var(--aqua);transform:scale(1.04)}
+.feel button:active{transform:scale(.94)}
+.tagp{display:grid;gap:12px;margin:12px 0}
+.tagp .lbl{display:block;margin-bottom:6px}
+.tagp .seg button{min-height:36px;padding:0 12px;font-size:13px}
+.fnote{margin:12px 0 0;padding:12px 14px;border-radius:16px;background:rgba(247,169,212,.08);border:1px solid rgba(247,169,212,.22)}
+.fnote .lbl{display:block;margin-bottom:2px}
+.fnote p{margin:0;font-size:16px;line-height:1.35}
+.notes{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px}
+.notes li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:14px;background:var(--s2)}
+.notes li p{margin:0;flex:1;font-size:15px}
+.notes li button{flex:none;color:var(--mute);width:32px;height:32px;border-radius:50%;font-size:20px;line-height:1}
+.trow{display:grid;grid-template-columns:62px 1fr 44px;align-items:center;gap:10px;font-size:14px;padding:6px 0}
+.trow span{color:var(--mute);font-size:12px}.trow em{font-style:normal;text-align:right;color:var(--mute)}
+.trow .tb{position:relative;height:26px;border-radius:9px;background:var(--s2);overflow:hidden;display:flex;align-items:center;padding-left:10px;font-weight:600}
+.trow .tb i{position:absolute;inset:0 auto 0 0;width:var(--w);background:linear-gradient(90deg,rgba(247,169,212,.35),rgba(247,169,212,.15));border-radius:9px;transform-origin:left;animation:tgrow .8s cubic-bezier(.2,.8,.2,1) both}
+.trow .tb b{position:relative;font-weight:600}
+@keyframes tgrow{from{transform:scaleX(0)}}
+.rvh{text-align:center}.rvh h3{margin:6px 0 2px}
+.rvg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.rvg .stat{padding:12px}.rvg .num{font-size:26px}
+.goals{display:grid;gap:8px;margin:8px 0}
+.goals button{text-align:left;padding:12px 14px;border-radius:16px;background:var(--s2);border:1px solid var(--line);font-size:15px;font-weight:600}
+.goals button[aria-pressed=true]{border-color:var(--aqua);background:rgba(123,224,211,.12)}
+.goals input{width:100%}
+.tagd{margin:4px 0 8px}.tagd summary{cursor:pointer;color:var(--mute);font-size:14px;padding:8px 0;list-style:none}.tagd summary::-webkit-details-marker{display:none}.tagd summary::before{content:"+ ";color:var(--aqua)}.tagd[open] summary::before{content:"− "}
+.mface{width:22px;height:22px;display:inline-flex}.mface svg{width:22px;height:22px}
+.toast{width:max-content}.toast span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.toast button{flex:none}
+.toast .x2{background:transparent;color:var(--ink);border:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){.trow .tb i{animation:none}.feel button{transition:none}}
 </style>
 </head>
 <body>
@@ -399,7 +442,7 @@ const gly=(k,c='')=>`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" 
 
 /* ---------- state ---------- */
 const LS='ebb.v1';
-const DEF=()=>({v:1,setup:false,settings:{weekly:10,daily:4,dryTarget:2,dryDays:[],baseline:14,price:10,tone:'gentle',cur:'$',why:'',since:0,prices:{},thcMg:10,lines:'m',u:0},custom:[],drinks:[],events:[],nights:[]});
+const DEF=()=>({v:1,setup:false,settings:{weekly:10,daily:4,dryTarget:2,dryDays:[],baseline:14,price:10,tone:'gentle',cur:'$',why:'',notes:[],since:0,prices:{},thcMg:10,lines:'m',u:0},custom:[],drinks:[],events:[],nights:[]});
 function normalize(j){const d=DEF();j=j||{};return{v:1,setup:!!j.setup,settings:{...d.settings,...(j.settings||{}),prices:{...((j.settings||{}).prices||{})}},custom:j.custom||[],drinks:j.drinks||[],events:j.events||[],nights:j.nights||[]}}
 let S=DEF();let hadLocal=false;
 try{const j=JSON.parse(localStorage.getItem(LS)||'null');if(j&&j.v){S=normalize(j);hadLocal=true}}catch(e){}
@@ -537,8 +580,8 @@ function vToday(){const s=stats(),st=S.settings,n=activeNight();
  const tl=ALL().filter(x=>x.t>=s.ds).reverse();const overIds=new Set();{let a=0;for(const x of s.week){a+=x.std;if(a>st.weekly+1e-6)overIds.add(x.id)}}
  tl.forEach((x,i)=>x._i=i);
  let hintOn=false;try{hintOn=!localStorage.getItem('ebb.editHint')}catch(e){}
- const list=tl.length?`${hintOn?'<p class="hint" style="margin:-4px 0 8px">Tap a drink to change it. Swipe left to delete.</p>':''}<ul class="log sw-ok">${tl.map(x=>x.kind==='thc'?thcRow(x,clock(x.t)):drinkRow(x,clock(x.t),`${Math.round(x.ml)} ml · ${f1(x.abv)}% · ${x.cal} cal${x.place==='bar'?' · out':''}`,overIds.has(x.id))).join('')}</ul>`:`<div class="empty">${st.dryDays.includes(s.dayIdx)?'A planned dry day. Lotl approves.':'Nothing logged today.'}</div>`;
- return header()+tank(s)+(n?nightCard(n):'')+quickRow()+
+ const list=tl.length?`${hintOn?'<p class="hint" style="margin:-4px 0 8px">Tap a drink to change it. Swipe left to delete.</p>':''}<ul class="log sw-ok">${tl.map(x=>x.kind==='thc'?thcRow(x,clock(x.t)):drinkRow(x,clock(x.t),`${Math.round(x.ml)} ml · ${f1(x.abv)}% · ${x.cal} cal${tagTxt(x)?' · '+esc(tagTxt(x)):x.place==='bar'?' · out':''}`,overIds.has(x.id))).join('')}</ul>`:`<div class="empty">${st.dryDays.includes(s.dayIdx)?'A planned dry day. Lotl approves.':'Nothing logged today.'}</div>`;
+ return header()+tank(s)+morningCard()+reviewCard()+goalBar()+(n?nightCard(n):'')+quickRow()+
  `<button class="crave" data-go="calm"><span class="o"></span><span><b>Craving one?</b><small>Ride it out for 90 seconds first.</small></span></button>`+
  `<h2>Today's log</h2>${list}`}
 const moon=()=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
@@ -572,6 +615,9 @@ function vWeek(){const s=stats(),st=S.settings,L=D(),mx=Math.max(st.daily*1.5,..
  <h2>Streaks</h2><div class="tiles"><div class="stat"><span class="lbl">Dry streak</span><span class="num">${s.dryStreak}<span class="mute" style="font-size:.5em"> day${s.dryStreak===1?'':'s'}</span></span><small>Best ${s.bestDry}${s.todayDry?' · today counts if it stays dry':''}</small></div><div class="stat"><span class="lbl">Weeks on plan</span><span class="num">${s.weeksOn}</span><small>Finished weeks in a row at or under ${st.weekly}</small></div></div>
  ${weeksIn>=1?`<h2>Since you started</h2><div class="tiles"><div class="stat"><span class="lbl">Drinks fewer</span><span class="num ${fewer>=0?'aq':'overc'}">${f1(Math.abs(fewer))}</span><small>${fewer>=0?'than your usual':'more than your usual'}</small></div><div class="stat"><span class="lbl">Calories</span><span class="num ${calAll>=0?'aq':'overc'}">${Math.round(Math.abs(calAll)).toLocaleString()}</span><small>${calAll>=0?'skipped vs your usual':'more than your usual'}</small></div></div>`:''}
  <h2>Patterns</h2>${patterns()}
+ <h2>Triggers</h2>${triggerCard()}
+ <h2>Mornings after</h2>${morningInsight()}
+ <button class="mcard rv" data-act="reviewAny" style="margin-top:18px"><span><b>Weekly review</b><small>Look back with Lotl and set one goal.</small></span><span class="go">›</span></button>
  <details><summary>Recent drinks</summary>${recent.length?`<ul class="log">${recent.map(x=>x.kind==='thc'?thcRow(x,mdate(x.t),clock(x.t)):`<li><button data-edit="${x.id}"><time>${mdate(x.t)}</time><div><div class="n">${esc(x.name)}</div><div class="d">${clock(x.t)} · ${x.cal} cal</div></div><div class="s">${f1(x.std)}</div>${PEN}</button></li>`).join('')}</ul>`:'<p class="mute">Nothing yet.</p>'}</details>`}
 function patterns(){const t=now(),from=t-28*DAY,L=D().filter(x=>x.t>=from);if(L.length<6)return`<div class="empty">Patterns show up after a few more drinks are logged.</div>`;
  const tot=sum(L,'std'),out=[];const wd=Array(7).fill(0);for(const x of L)wd[wdOf(dayStart(x.t))]+=x.std;const top=wd.indexOf(Math.max(...wd));out.push(`${WDL[top]} carry ${Math.round(wd[top]/tot*100)}% of your drinking. That's the night to plan ahead for.`);
@@ -614,9 +660,12 @@ function vMe(){const st=S.settings;const dd=WD.map((w,i)=>`<button data-act="dry
  <h2>How I nudge you</h2><div class="card"><div class="seg"><button data-act="tone" data-v="gentle" aria-pressed="${st.tone==='gentle'}">Gentle</button><button data-act="tone" data-v="blunt" aria-pressed="${st.tone==='blunt'}">Blunt</button></div>
  <p class="hint">${st.tone==='blunt'?'Blunt: plain numbers and no cushioning when you go over. Still never about you as a person.':'Gentle: the same numbers, said kindly.'}</p>
  <div class="field"><label for="why">Why you're cutting down</label><textarea id="why" data-set="why" maxlength="160" placeholder="Sleep better, sharper mornings, more present at home">${esc(st.why)}</textarea></div></div>
+ <h2>Notes to future you</h2><div class="card"><p class="hint" style="margin-top:0">Shown when you're about to go over, a different one each time. Write it the way you'd talk to yourself.</p>
+ ${(st.notes||[]).length?`<ul class="notes">${st.notes.map((n,i)=>`<li><p>“${esc(n)}”</p><button data-act="rmNote" data-i="${i}" aria-label="Remove note">×</button></li>`).join('')}</ul>`:''}
+ ${(st.notes||[]).length<6?`<div class="field" style="margin:0"><textarea id="noteNew" maxlength="160" placeholder="The third drink never makes the night better. Tomorrow-you has a 9 AM."></textarea></div><div class="btns"><button class="pill full" data-act="addNote">Add note</button></div>`:''}</div>
  ${cust.length?`<h2>Your drinks</h2><div class="card">${cust.map(c=>`<div class="setrow"><div class="t">${esc(c.name)}<small>${Math.round(c.ml)} ml · ${f1(c.abv)}% · ${f1(stdOf(c.ml,c.abv))} std</small></div><button class="pill ghost" data-act="rmCustom" data-id="${c.id}">Remove</button></div>`).join('')}</div>`:''}
  <h2>Your data</h2><div class="card"><p id="syncl" class="mute" style="margin:0 0 12px">${syncLabel()}</p><p class="hint" style="margin-top:0">${sync.state==='local'?'Stays in this browser. Export a backup now and then.':'Kept privately in your Claude account, so it follows you to your Mac. Nobody else can read it.'}</p>
- <div class="btns"><button class="pill full" data-act="export">Back up or move data</button><div class="hold soft" role="button" tabindex="0" data-hold="clearLog"><span class="f"></span><span>Hold to clear drink log</span></div><p class="hint" style="margin:-4px 0 4px;text-align:center">Clears drinks, THC, nights, urges and streaks. Keeps your plan and custom drinks.</p><div class="hold" role="button" tabindex="0" data-hold="reset"><span class="f"></span><span>Hold to erase everything</span></div></div></div>
+ <div class="btns"><button class="pill full" data-act="export">Back up or move data</button><div class="hold soft" role="button" tabindex="0" data-hold="clearLog"><span class="f"></span><span>Hold to clear drink log</span></div><p class="hint" style="margin:-4px 0 4px;text-align:center">Clears drinks, THC, nights, urges, check-ins and streaks. Keeps your plan, notes and custom drinks.</p><div class="hold" role="button" tabindex="0" data-hold="reset"><span class="f"></span><span>Hold to erase everything</span></div></div></div>
  <p class="hint">A standard drink here is 14 g of alcohol, the US definition. Ebb is a self-help tool, not medical advice. If you drink heavily every day, stopping suddenly can be dangerous, so talk to a doctor first.</p>`}
 const LIM={weekly:[0,70,1],daily:[1,20,1],dryTarget:[0,7,1],baseline:[0,100,1],price:[0,100,1]};
 const stepper=(k,v,ob)=>`<div class="step"><button data-act="step" data-k="${k}" data-d="-1" ${ob?'data-ob="1"':''} aria-label="Less">−</button><output>${v}</output><button data-act="step" data-k="${k}" data-d="1" ${ob?'data-ob="1"':''} aria-label="More">+</button></div>`;
@@ -625,19 +674,20 @@ const stepper=(k,v,ob)=>`<div class="step"><button data-act="step" data-k="${k}"
 function makeThc(o){const n=activeNight();return{id:uid(),t:o.t??now(),kind:'thc',pid:'thc',name:o.name||'THC drink',mg:r2(+(o.mg??S.settings.thcMg??10)),ml:0,abv:0,std:0,cal:0,price:0,place:n?'bar':'home',u:now()}}
 function thcWeek(){const ws=weekStart(now());return sum(TH().filter(x=>x.t>=ws),'mg')}
 function logThc(d){S.drinks.push(d);commit();const el=document.querySelector('[data-add="thc"]');if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}
- play('tilt',true);toast(`${esc(d.name)} logged · ${f1(thcWeek())} mg THC this week`,()=>{d.del=true;d.u=now();commit()})}
-function thcRow(x,when,sub){return`<li style="--i:${Math.min(8,x._i||0)}"><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${when}</time><div><div class="n">${esc(x.name)}</div><div class="d">${sub?sub+' · ':''}THC · not counted as alcohol</div></div><div class="s thc">${f1(x.mg)}<small>mg</small></div>${PEN}</button></li>`}
+ play('tilt',true);toast(`${esc(d.name)} · ${f1(thcWeek())} mg this week`,()=>{d.del=true;d.u=now();commit()},{label:'Tag',fn:()=>tagSheet(d)})}
+function thcRow(x,when,sub){return`<li style="--i:${Math.min(8,x._i||0)}"><button data-edit="${x.id}" aria-label="Edit ${esc(x.name)}"><time>${when}</time><div><div class="n">${esc(x.name)}</div><div class="d">${sub?sub+' · ':''}THC${tagTxt(x)?' · '+esc(tagTxt(x)):' · not counted as alcohol'}</div></div><div class="s thc">${f1(x.mg)}<small>mg</small></div>${PEN}</button></li>`}
 function thcSheet(x,isNew){const tv=new Date(x.t-new Date(x.t).getTimezoneOffset()*MIN).toISOString().slice(0,16);
  openSheet(`<h3>${isNew?'Log a THC drink':'Edit THC drink'}</h3><form id="tf"><div class="field"><label for="tn">Name</label><input id="tn" type="text" maxlength="40" value="${esc(x.name)}"></div>
  <div class="field"><label for="tmg">THC in mg</label><div class="seg" style="margin-bottom:6px">${[2.5,5,10,20].map(v=>`<button type="button" data-act="tmg" data-v="${v}">${v} mg</button>`).join('')}</div><input id="tmg" type="number" inputmode="decimal" min="0.5" max="500" step="0.5" value="${x.mg}"></div>
  <div class="field"><label for="tt">When</label><input id="tt" type="datetime-local" value="${tv}"></div>
  <label class="setrow" style="cursor:pointer"><span class="t">Use this dose for the button<small>Right now it logs ${f1(S.settings.thcMg||10)} mg</small></span><input id="tdef" type="checkbox" style="width:24px;height:24px;accent-color:var(--aqua)"></label>
+ <details class="tagd"${tagTxt(x)?' open':''}><summary>Context${tagTxt(x)?': '+esc(tagTxt(x)):' (optional)'}</summary>${tagPicker(x)}</details>
  <p class="hint">THC is tracked on its own. It doesn't count toward your drink limits, dry days or the liver view.</p>
  <div class="btns"><button class="pill aqua full" type="submit">${isNew?'Log it':'Save'}</button>${isNew?'':`<button class="pill ghost full" type="button" data-act="delDrink" style="color:var(--over)">Delete</button>`}</div></form>`,()=>{
-  $('#sheet').dataset.edit=isNew?'':x.id;
+  $('#sheet').dataset.edit=isNew?'':x.id;tagTarget=x;
   $('#tf').onsubmit=e=>{e.preventDefault();const mg=Math.max(.5,Math.min(500,+$('#tmg').value||10)),o={name:$('#tn').value.trim()||'THC drink',mg:r2(mg),t:new Date($('#tt').value).getTime()||now()};
    if($('#tdef').checked){S.settings.thcMg=o.mg;S.settings.u=now()}
-   closeSheet();if(isNew)logThc(makeThc(o));else{Object.assign(x,o,{u:now()});commit();toast('Saved')}}})}
+   closeSheet();if(isNew){const d=makeThc(o);if(x.tags)d.tags={...x.tags};logThc(d)}else{Object.assign(x,o,{u:now()});commit();toast('Saved')}}})}
 
 /* ---------- liver ---------- */
 const LP='M30 92C28 47 78 22 140 25C202 28 258 40 281 62C293 73 286 87 268 93C236 104 201 118 171 140C141 162 101 179 69 168C39 157 31 131 30 92Z';
@@ -776,11 +826,100 @@ function render(){if(!S.setup){$('#app').innerHTML='';onboard();return}
  if(oldHero){const nh=$('#hero');if(nh){syncHero(oldHero,nh);nh.replaceWith(oldHero)}}
  const nq=$('.qs');if(nq&&prev===view)nq.scrollLeft=qsl;
  const app=$('#app');if(prev!==view&&!RM){app.classList.remove('vin');[...app.children].forEach((c,i)=>c.style.setProperty('--k',Math.min(i,9)));void app.offsetWidth;app.classList.add('vin');clearTimeout(app._vt);app._vt=setTimeout(()=>app.classList.remove('vin'),1400);if(view==='today')for(const e of app.querySelectorAll('.hud [data-count]'))roll(e,0,+e.dataset.count)}
- heroSetup();
+ heroSetup();maybeAskMorning();
  for(const a of document.querySelectorAll('.tabs a'))a.setAttribute('aria-current',a.dataset.v===view?'page':'false');
  if(ro){ro.disconnect();ro=null}const tr=$('#trend');if(tr){ro=new ResizeObserver(drawTrend);ro.observe(tr)}}
 function route(){qOrder=null;const h=location.hash.replace('#','');view=['week','calm','me','liver'].includes(h)?h:'today';if(view!=='calm'&&calm.on){calm.on=false;clearInterval(calm.timer)}render();window.scrollTo(0,0)}
 function go(v){const h=v==='today'?'':'#'+v,c=location.hash==='#'?'':location.hash;if(c===h)route();else location.hash=h}
+
+
+/* ---------- mornings, tags, notes, weekly review ---------- */
+const FEELS=[['great','Great'],['ok','Okay'],['rough','Rough'],['awful','Awful']];
+const SLEEPS=[['good','Slept well'],['meh','So-so'],['poor','Slept badly']];
+const TAGS={where:['Home','Bar','Restaurant','Party','Work event'],who:['Alone','Partner','Friends','Work'],mood:['Celebrating','Stressed','Bored','Social','Tired']};
+const TAGL={where:'Where',who:'With',mood:'Mood'};
+const OUTW=['Bar','Restaurant','Party','Work event'];
+const FACE={great:'<path d="M11 19c2.5 3 7.5 3 10 0"/><path d="M11 13.5l1.5-1.5 1.5 1.5M18 13.5l1.5-1.5 1.5 1.5"/>',ok:'<path d="M12 20h8"/><circle cx="12.5" cy="13.5" r="1.3" fill="currentColor"/><circle cx="19.5" cy="13.5" r="1.3" fill="currentColor"/>',rough:'<path d="M11.5 21c2.5-2 6.5-2 9 0"/><path d="M11 14h3M18 14h3"/>',awful:'<path d="M11 22c2.5-3.5 7.5-3.5 10 0"/><path d="M11 12.5l3 2M14 12.5l-3 2M18 12.5l3 2M21 12.5l-3 2"/>'};
+const face=k=>`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke-opacity=".45"/>${FACE[k]}</svg>`;
+const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MO=()=>S.events.filter(e=>!e.del&&e.type==='morning');
+const RV=()=>S.events.filter(e=>!e.del&&e.type==='review');
+function morningDue(){const ds=dayStart(now()),y=addDays(ds,-1);if(y<dayStart(S.settings.since||0)&&!D().some(x=>x.t>=y&&x.t<ds))return null;if(MO().some(e=>e.day===y))return null;const std=sum(D().filter(x=>x.t>=y&&x.t<ds),'std');return std>0?{day:y,std}:null}
+let mDraft=null;
+function morningSheet(m){mDraft={day:m.day,feel:null,sleep:null};const am=new Date().getHours()<12;
+ openSheet(`${lotl('ok','mini')}<h3 style="text-align:center">How do you feel ${am?'this morning':'today'}?</h3><p class="mute" style="text-align:center">After last night's ${pl(m.std,'drink')}. One tap is enough.</p>
+ <div class="feel">${FEELS.map(([k,l])=>`<button type="button" data-act="mfeel" data-v="${k}" aria-pressed="false">${face(k)}<span>${l}</span></button>`).join('')}</div>
+ <div class="field"><span class="lbl">Sleep, if you want</span><div class="seg" id="msleep">${SLEEPS.map(([k,l])=>`<button type="button" data-act="msleep" data-v="${k}" aria-pressed="false">${l}</button>`).join('')}</div></div>
+ <div class="btns"><button class="pill aqua full" data-act="msave" disabled>Save</button><button class="pill ghost full" data-act="mskip">Skip today</button></div>`)}
+function morningCard(){const m=morningDue();if(!m)return'';return`<button class="mcard" data-act="morning"><span class="ic">${SUN}</span><span><b>How do you feel after last night?</b><small>${pl(m.std,'drink')} yesterday. One tap.</small></span><span class="go">›</span></button>`}
+function maybeAskMorning(){if(view!=='today'||!$('#sheet').hidden)return;const m=morningDue();if(!m)return;let k='';try{k=localStorage.getItem('ebb.mAsk')}catch(e){}if(k===String(m.day))return;try{localStorage.setItem('ebb.mAsk',String(m.day))}catch(e){}setTimeout(()=>{if($('#sheet').hidden&&view==='today'&&morningDue())morningSheet(m)},900)}
+
+const tagTxt=x=>x.tags?['where','who','mood'].map(g=>x.tags[g]).filter(Boolean).join(' · '):'';
+let tagTarget=null;
+function tagPicker(x){const t=x.tags||{};return`<div class="tagp">${Object.keys(TAGS).map(g=>`<div><span class="lbl">${TAGL[g]}</span><div class="seg">${TAGS[g].map(v=>`<button type="button" data-act="tag" data-g="${g}" data-v="${esc(v)}" aria-pressed="${t[g]===v}">${esc(v)}</button>`).join('')}</div></div>`).join('')}</div>`}
+function tagSheet(x){tagTarget=x;openSheet(`<h3>What was going on?</h3><p class="mute">Optional. Tap what fits, skip what doesn't. Ebb uses it to spot your triggers.</p>${tagPicker(x)}<div class="btns"><button class="pill aqua full" data-act="close">Done</button></div>`)}
+function setTag(g,v){const x=tagTarget;if(!x)return;x.tags={...(x.tags||{})};x.tags[g]=x.tags[g]===v?null:v;if(g==='where'&&x.kind!=='thc'&&x.tags.where)x.place=OUTW.includes(v)?'bar':'home';if(S.drinks.includes(x)){x.u=now();commit()}
+ for(const b of document.querySelectorAll(`#sheet [data-act="tag"][data-g="${g}"]`))b.setAttribute('aria-pressed',b.dataset.v===x.tags[g])}
+function topTriggers(L,n=3){const tg=L.filter(x=>x.tags&&(x.tags.where||x.tags.who||x.tags.mood));if(tg.length<3)return null;const tot=sum(tg,'std')||tg.length;const m=new Map();
+ for(const x of tg)for(const g of['mood','who','where']){const v=x.tags[g];if(!v)continue;const k=g+'|'+v,o=m.get(k)||{g,v,std:0,c:0};o.std+=x.std||0;o.c++;m.set(k,o)}
+ const arr=[...m.values()].filter(o=>o.c>=2).sort((a,b)=>b.std-a.std||b.c-a.c);const out=[];const used=new Set();for(const o of arr){if(out.length>=n)break;if(used.has(o.g)&&arr.filter(a=>!used.has(a.g)).length&&out.length<2)continue;used.add(o.g);out.push({...o,share:Math.round(o.std/tot*100)})}
+ return out.length?{rows:out,n:tg.length}:null}
+const trigRows=t=>t.rows.map(o=>`<div class="trow"><span>${TAGL[o.g]}</span><div class="tb"><i style="--w:${Math.max(6,o.share)}%"></i><b>${esc(o.v)}</b></div><em>${o.share}%</em></div>`).join('');
+function triggerCard(){const L=D().filter(x=>x.t>=now()-28*DAY),t=topTriggers(L);if(!t)return`<div class="empty">Tag a few drinks (tap Tag after logging, or edit a drink) and your top triggers show up here.</div>`;
+ return`<div class="card">${trigRows(t)}<p class="hint" style="margin:8px 0 0">Share of your alcohol from ${t.n} tagged drinks, last 4 weeks.</p></div>`}
+function morningInsight(){const ms=MO().filter(e=>e.feel&&e.day>=now()-60*DAY);if(ms.length<3)return`<div class="empty">Answer the morning check-in a few times and you'll see how each amount feels the next day.</div>`;
+ const L=D(),night=d=>sum(L.filter(x=>x.t>=d&&x.t<addDays(d,1)),'std');const rows=FEELS.map(([k,l])=>{const g=ms.filter(e=>e.feel===k);return g.length?{k,l,n:g.length,avg:g.reduce((a,e)=>a+night(e.day),0)/g.length}:null}).filter(Boolean);
+ const good=ms.filter(e=>e.feel==='great'||e.feel==='ok'),bad=ms.filter(e=>e.feel==='rough'||e.feel==='awful'),avg=a=>a.reduce((s,e)=>s+night(e.day),0)/a.length;
+ const line=good.length&&bad.length?`<p style="margin:0 0 10px">Rough mornings came after <b class="overc">${f1(avg(bad))}</b> drinks on average. Good ones came after <b class="aq">${f1(avg(good))}</b>.</p>`:'';
+ const sl=ms.filter(e=>e.sleep==='poor'),slt=sl.length>=2?`<p class="hint" style="margin:8px 0 0">You slept badly after ${f1(avg(sl))} drinks on average.</p>`:'';
+ return`<div class="card">${line}${rows.map(r=>`<div class="facts" style="margin:6px 0;padding:10px 12px"><div><span style="display:flex;align-items:center;gap:8px"><span class="mface">${face(r.k)}</span>${r.l} <span class="mute">× ${r.n}</span></span><b>${f1(r.avg)} drinks before</b></div></div>`).join('')}${slt}<p class="hint" style="margin:8px 0 0">From your morning check-ins, last 60 days.</p></div>`}
+
+function allNotes(){const st=S.settings,n=(st.notes||[]).filter(Boolean);return n.length?n:st.why?[st.why]:[]}
+function pickNote(){const n=allNotes();if(!n.length)return'';let i=0;try{i=(+localStorage.getItem('ebb.noteI')||0);localStorage.setItem('ebb.noteI',String(i+1))}catch(e){}return n[i%n.length]}
+
+function reviewWeek(){const t=now(),ds=dayStart(t),ws=weekStart(t),di=wdOf(ds),since=dayStart(S.settings.since||t);
+ if(di===6&&new Date(t).getHours()>=12)return ws;if(di<=1){const w=addDays(ws,-7);return since<addDays(w,6)?w:null}return null}
+function reviewDue(){const w=reviewWeek();if(w==null)return null;return RV().some(e=>e.wk===w)?null:w}
+function curGoal(){const ws=weekStart(now());const r=RV().filter(e=>e.goal&&e.wk===addDays(ws,-7)).slice(-1)[0];return r?r.goal:null}
+function goalProgress(g){const s=stats(),st=S.settings;if(g.k==='dry')return`${s.dry+(s.todayDry?0:0)} of ${g.n}`;if(g.k==='weekly')return`${f1(s.wStd)} of ${g.n}`;if(g.k==='daily'){const L=D(),over=Array.from({length:7},(_,i)=>sum(L.filter(x=>x.t>=addDays(s.ws,i)&&x.t<addDays(s.ws,i+1)),'std')).filter(v=>v>g.n+1e-6).length;return over?`${over} day${over>1?'s':''} over`:'on track'}return''}
+function goalBar(){const g=curGoal();if(!g)return'';const p=goalProgress(g);return`<div class="goalb"><span class="lbl">This week</span><b>${esc(g.text)}</b>${p?`<em>${p}</em>`:''}</div>`}
+function reviewCard(){const w=reviewDue();if(w==null)return'';return`<button class="mcard rv" data-act="review"><span class="ic">${lotl('glow','',null).replace('<svg','<svg style="width:30px;height:30px"')}</span><span><b>${w===weekStart(now())?'Your week with Lotl':'Last week with Lotl'}</b><small>A one-minute look back, then one goal.</small></span><span class="go">›</span></button>`}
+let rvDraft=null;
+function weekData(wk){const st=S.settings,we=addDays(wk,7),ds=dayStart(now()),since=dayStart(st.since||now()),L=D().filter(x=>x.t>=wk&&x.t<we);
+ const per=Array.from({length:7},(_,i)=>sum(L.filter(x=>x.t>=addDays(wk,i)&&x.t<addDays(wk,i+1)),'std'));
+ let dry=0,counted=0;for(let i=0;i<7;i++){const a=addDays(wk,i);if(a<since||a>ds)continue;counted++;if(!per[i])dry++}
+ const std=sum(L,'std'),cal=sum(L,'cal'),usual=st.baseline*150*counted/7,overDays=per.filter(v=>v>st.daily+1e-6).length;
+ const avg4=end=>{const s=addDays(end,-28);let tot=sum(D().filter(x=>x.t>=s&&x.t<end),'std');const pre=Math.max(0,Math.min(28,Math.round((since-s)/DAY)));tot+=(+st.baseline||0)/7*pre;return tot/4};
+ const a1=avg4(Math.min(we,addDays(ds,1))),a0=avg4(wk),lv=liverState();
+ const trend=a1<a0-.5?'easing':a1>a0+.5?'rising':'steady';
+ const ms=MO().filter(e=>e.feel&&e.day>=addDays(wk,-1)&&e.day<we);
+ const top=per.indexOf(Math.max(...per));
+ return{wk,we,per,dry,counted,std,cal,usual,overDays,trend,a1,lv,ms,top,trig:topTriggers(L,2),L}}
+function goalOptions(w){const st=S.settings,o=[];
+ if(w.dry<st.dryTarget)o.push({k:'dry',n:st.dryTarget,text:`Hit ${st.dryTarget} dry days`});else if(w.dry>st.dryTarget)o.push({k:'dry',n:w.dry,text:`Match ${w.dry} dry days again`});else o.push({k:'dry',n:Math.min(7,st.dryTarget+1),text:`Try ${Math.min(7,st.dryTarget+1)} dry days`});
+ o.push(w.std>st.weekly+1e-6?{k:'weekly',n:st.weekly,text:`Stay at or under ${st.weekly} drinks`}:{k:'weekly',n:Math.max(0,st.weekly-1),text:`Finish under ${Math.max(0,st.weekly-1)} drinks`});
+ if(w.overDays)o.push({k:'daily',n:st.daily,text:`No day over ${st.daily}`});
+ if(w.per[w.top]>0)o.push({k:'plan',text:`Plan ${WDL[w.top].slice(0,-1)} before it starts`});
+ const tm=w.trig&&w.trig.rows.find(r=>r.g==='mood');if(tm&&['Stressed','Bored','Tired'].includes(tm.v))o.push({k:'trigger',text:`When ${tm.v.toLowerCase()}, ride it out first`});
+ o.push({k:'water',text:'Water between every round'});return o.slice(0,4)}
+function reviewSheet(wk){const st=S.settings,w=weekData(wk),under=w.std<=st.weekly+1e-6,b=st.tone==='blunt',cur=wk===weekStart(now());
+ const m=under?(w.dry>=st.dryTarget?'proud':'glow'):'wary';
+ const head=under?(b?`${f1(w.std)} of ${st.weekly}. Plan kept.`:`You kept your week. ${f1(w.std)} of ${st.weekly}.`):(b?`${f1(w.std)} of ${st.weekly}. ${f1(w.std-st.weekly)} over.`:`${f1(w.std)} of ${st.weekly} this week. Next week is a fresh tank.`);
+ const calD=w.usual-w.cal;
+ const feelN=k=>w.ms.filter(e=>e.feel===k).length,mor=w.ms.length?FEELS.filter(([k])=>feelN(k)).map(([k,l])=>`${feelN(k)} ${l.toLowerCase()}`).join(', '):'';
+ const opts=goalOptions(w);rvDraft={wk,opts,sel:null};
+ openSheet(`<div class="rvh">${lotl(m,'mini')}<span class="lbl">${cur?'This week so far':'Week of '+mdate(wk)}</span><h3>${esc(head)}</h3></div>
+ <div class="rvg">
+ <div class="stat"><span class="lbl">Dry days</span><span class="num ${w.dry>=st.dryTarget?'aq':''}">${w.dry}<span class="mute" style="font-size:.5em"> of ${st.dryTarget}</span></span></div>
+ <div class="stat"><span class="lbl">Days over ${st.daily}</span><span class="num ${w.overDays?'overc':'aq'}">${w.overDays}</span></div>
+ <div class="stat"><span class="lbl">${calD>=0?'Calories avoided':'Extra calories'}</span><span class="num ${calD>=0?'aq':'overc'}">${Math.round(Math.abs(calD)).toLocaleString()}</span><small>vs your usual</small></div>
+ <div class="stat"><span class="lbl">Liver load</span><span class="num" style="font-size:22px">${{easing:'Easing',steady:'Steady',rising:'Rising'}[w.trend]}</span><small>${f1(w.a1)} a week, 4-week average</small></div></div>
+ ${w.trig?`<span class="lbl">Top triggers</span>${trigRows(w.trig)}`:''}
+ ${mor?`<div class="facts"><div><span>Mornings after</span><b>${mor}</b></div></div>`:''}
+ <h3 style="margin-top:18px">One goal for ${cur?'next':'this'} week</h3><div class="goals">${opts.map((g,i)=>`<button type="button" data-act="rvGoal" data-i="${i}" aria-pressed="false">${esc(g.text)}</button>`).join('')}<input id="rvOwn" type="text" maxlength="60" placeholder="Or write your own"></div>
+ <div class="btns"><button class="pill aqua full" data-act="rvSave">Set goal</button><button class="pill ghost full" data-act="rvSkip">No goal this time</button></div>
+ <p class="hint">Liver load is an illustration from your logs, not a test result.</p>`)}
+function saveReview(goal){const d=rvDraft;if(!d)return;for(const e of RV())if(e.wk===d.wk){e.del=true;e.u=now()}S.events.push({id:uid(),t:now(),type:'review',wk:d.wk,goal:goal||null,u:now()});rvDraft=null;closeSheet();commit();if(goal){toast('Goal set. Lotl will keep it in view.');play('wave',true)}else toast('Week reviewed.')}
 
 /* ---------- onboarding ---------- */
 let OB={step:0,baseline:14,weekly:10,daily:4,dryTarget:2,tone:'gentle',why:'',price:10};
@@ -801,7 +940,7 @@ function onboard(){const st=OB.step,prog=`<div class="prog">${[0,1,2,3].map(i=>`
 /* ---------- actions ---------- */
 function addDrink(d,{skipCheck=false,tile=null}={}){const f=skipCheck?null:friction(d);if(f){pause(f);return}
  S.drinks.push(d);commit();if(tile){const el=document.querySelector(`[data-add="${CSS.escape(tile)}"]`);if(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}}
- const s=stats();play(s.wStd>S.settings.weekly+1e-6?'flinch':'hop',true);toast(`${esc(d.name)} logged · ${f1(s.wStd)} of ${S.settings.weekly} this week`,()=>{d.del=true;d.u=now();commit()})}
+ const s=stats();play(s.wStd>S.settings.weekly+1e-6?'flinch':'hop',true);toast(`${esc(d.name)} · ${f1(s.wStd)} of ${S.settings.weekly}`,()=>{d.del=true;d.u=now();commit()},{label:'Tag',fn:()=>tagSheet(d)})}
 function makeDrink(p,o={}){const n=activeNight(),place=o.place||(n?'bar':'home'),ml=+(o.ml??p.ml),abv=+(o.abv??p.abv),pr=S.settings.prices[p.id];
  const price=o.price!=null?+o.price:(pr&&pr[place]!=null?+pr[place]:p[place]);
  return{id:uid(),t:o.t??now(),pid:p.id,name:(o.name??p.name)||'Drink',ml,abv,std:r2(stdOf(ml,abv)),cal:calFor(p,ml,abv),price:r2(price||0),place,u:now()}}
@@ -815,7 +954,8 @@ function friction(d){const s=stats(),st=S.settings,n=activeNight(),r=[];
 let pending=null;
 function pause(f){pending=f.d;const st=S.settings,b=st.tone==='blunt'?'b':'g',top=f.r[0],[h,sub]=COPY[top.k][b].map(x=>fillT(x,top));const s=f.s,d=f.d,nw=s.wStd+d.std,nt=s.tStd+d.std;
  const m=nw>st.weekly+1e-6?'wilt':'wary';
- openSheet(`${lotl(m,'mini')}<h3 style="text-align:center">${esc(h)}</h3><p class="mute" style="text-align:center">${esc(sub)}</p>
+ const note=pickNote();
+ openSheet(`${lotl(m,'mini')}<h3 style="text-align:center">${esc(h)}</h3><p class="mute" style="text-align:center">${esc(sub)}</p>${note?`<div class="fnote"><span class="lbl">A note from you</span><p>“${esc(note)}”</p></div>`:''}
  <div class="facts"><div><span>This week</span><b class="${nw>st.weekly?'overc':''}">${f1(s.wStd)} → ${f1(nw)} of ${st.weekly}</b></div><div><span>Today</span><b class="${nt>st.daily?'overc':''}">${f1(s.tStd)} → ${f1(nt)} of ${st.daily}</b></div><div><span>This one adds</span><b>${f1(d.std)} drinks · ${d.cal} cal</b></div>${nw>st.weekly+1e-6?`<div><span>Over your week</span><b class="overc">${f1(nw-st.weekly)} drinks · ${Math.round(s.oCal+d.cal*Math.min(1,(nw-Math.max(s.wStd,st.weekly))/d.std))} extra cal</b></div>`:''}</div>
  <div class="btns"><button class="pill aqua full" data-act="pauseRide">Ride it out · 90 seconds</button><button class="pill full" data-act="pauseSwap">Have water instead</button><div class="hold" role="button" tabindex="0" data-hold="logAnyway"><span class="f"></span><span>Hold to log ${esc(d.name)} anyway</span></div></div>`)}
 function editSheet(x,isNew){const p=findP(x.pid||'beer');const sizes=[[44,'1.5 oz'],[150,'5 oz'],[355,'12 oz'],[473,'16 oz'],[568,'20 oz'],[750,'Bottle']];
@@ -824,13 +964,14 @@ function editSheet(x,isNew){const p=findP(x.pid||'beer');const sizes=[[44,'1.5 o
  <div class="field"><label for="eml">Size in ml</label><div class="seg" style="margin-bottom:6px">${sizes.map(([v,l])=>`<button type="button" data-act="esize" data-v="${v}">${l}</button>`).join('')}</div><div class="qty"><button type="button" class="pill h" data-act="mlq" data-v="half">Half</button><button type="button" class="pill" data-act="mlq" data-v="-" aria-label="Smaller">−</button><input id="eml" type="number" inputmode="decimal" min="10" max="2000" step="1" value="${Math.round(x.ml)}"><button type="button" class="pill" data-act="mlq" data-v="+" aria-label="Larger">+</button></div></div>
  <div class="field"><label for="eabv">Strength <output id="eabvo">${f1(x.abv)}%</output></label><input id="eabv" type="range" min="0.5" max="60" step="0.5" value="${x.abv}"></div>
  <div class="field"><label for="et">When</label><input id="et" type="datetime-local" value="${tv}"></div>
+ <details class="tagd"${tagTxt(x)?' open':''}><summary>Context${tagTxt(x)?': '+esc(tagTxt(x)):' (optional)'}</summary>${tagPicker(x)}</details>
  ${isNew?`<label class="setrow" style="cursor:pointer"><span class="t">Add to my drinks<small>Shows up as a one-tap button</small></span><input id="esave" type="checkbox" style="width:24px;height:24px;accent-color:var(--aqua)"></label>`:''}
  <div class="facts"><div><span>Standard drinks</span><b id="estd" class="num" style="font-size:24px">${f1(stdOf(x.ml,x.abv))}</b></div></div>
  <div class="btns"><button class="pill aqua full" type="submit">${isNew?'Log it':'Save'}</button>${isNew?'':`<button class="pill ghost full" type="button" data-act="delDrink" style="color:var(--over)">Delete</button>`}</div></form>`,()=>{
-  const ml=$('#eml'),abv=$('#eabv'),upd=()=>{$('#eabvo').textContent=f1(+abv.value)+'%';$('#estd').textContent=f1(stdOf(+ml.value||0,+abv.value||0))};ml.oninput=upd;abv.oninput=upd;
+  tagTarget=x;const ml=$('#eml'),abv=$('#eabv'),upd=()=>{$('#eabvo').textContent=f1(+abv.value)+'%';$('#estd').textContent=f1(stdOf(+ml.value||0,+abv.value||0))};ml.oninput=upd;abv.oninput=upd;
   $('#sheet').dataset.edit=isNew?'':x.id;
   $('#ef').onsubmit=e=>{e.preventDefault();const o={name:$('#en').value.trim()||p.name,ml:Math.max(1,+ml.value||p.ml),abv:+abv.value,t:new Date($('#et').value).getTime()||now()};
-   if(isNew){const d=makeDrink(p,{...o,place:x.place});if($('#esave')&&$('#esave').checked){S.custom.push({id:'c'+uid(),name:o.name,ml:o.ml,abv:o.abv,cal:0,home:0,bar:0,g:'star',u:now()})}closeSheet();addDrink(d)}
+   if(isNew){const d=makeDrink(p,{...o,place:x.place});if(x.tags)d.tags={...x.tags};if($('#esave')&&$('#esave').checked){S.custom.push({id:'c'+uid(),name:o.name,ml:o.ml,abv:o.abv,cal:0,home:0,bar:0,g:'star',u:now()})}closeSheet();addDrink(d)}
    else{Object.assign(x,o,{std:r2(stdOf(o.ml,o.abv)),cal:calFor(p,o.ml,o.abv),u:now()});seenHint();closeSheet();commit();toast('Saved')}}})}
 function planNight(){const s=stats(),st=S.settings,def=Math.max(1,Math.min(st.daily,Math.floor(Math.max(1,s.left))));const nw={limit:def,pace:45,water:true};
  const draw=()=>openSheet(`${lotl('glow','mini')}<h3 style="text-align:center">Plan tonight before it starts</h3><p class="mute" style="text-align:center">Deciding now, with a clear head, is the single best predictor of sticking to it.</p>
@@ -843,9 +984,9 @@ let nightDraft=null;
 
 /* ---------- sheet & toast ---------- */
 let openedAt=0;
-function openSheet(html,mount){openedAt=now();const sh=$('#sheet'),sc=$('#scrim');sh.innerHTML=`<div class="grab"></div><button class="x" data-act="close" aria-label="Close">×</button>${html}`;sh.hidden=false;sc.hidden=false;requestAnimationFrame(()=>{sh.classList.add('on');sc.classList.add('on')});if(mount)mount();const f=sh.querySelector('button.pill,input');if(f&&matchMedia('(hover:hover)').matches)f.focus({preventScroll:true})}
-function closeSheet(){const sh=$('#sheet'),sc=$('#scrim');sh.classList.remove('on');sc.classList.remove('on');setTimeout(()=>{if(!sh.classList.contains('on')){sh.hidden=true;sc.hidden=true;sh.innerHTML=''}},300);pending=null;nightDraft=null;if(pendingRender)setTimeout(render,320)}
-let tT=0;function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${msg}</span>${undo?'<button data-act="undo">Undo</button>':''}`;t._undo=undo;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>{t.classList.remove('on');t._undo=null},undo?5000:2200)}
+function openSheet(html,mount){openedAt=now();{const t=$('#toast');if(t&&t.classList.contains('on')){t.classList.remove('on');t._undo=null;t._x2=null}}const sh=$('#sheet'),sc=$('#scrim');sh.innerHTML=`<div class="grab"></div><button class="x" data-act="close" aria-label="Close">×</button>${html}`;sh.hidden=false;sc.hidden=false;requestAnimationFrame(()=>{sh.classList.add('on');sc.classList.add('on')});if(mount)mount();const f=sh.querySelector('button.pill,input');if(f&&matchMedia('(hover:hover)').matches)f.focus({preventScroll:true})}
+function closeSheet(){const sh=$('#sheet'),sc=$('#scrim');sh.classList.remove('on');sc.classList.remove('on');setTimeout(()=>{if(!sh.classList.contains('on')){sh.hidden=true;sc.hidden=true;sh.innerHTML=''}},300);pending=null;nightDraft=null;mDraft=null;rvDraft=null;tagTarget=null;if(pendingRender)setTimeout(render,320)}
+let tT=0;function toast(msg,undo,x2){const t=$('#toast');t.innerHTML=`<span>${msg}</span>${x2?`<button class="x2" data-act="toastx">${x2.label}</button>`:''}${undo?'<button data-act="undo">Undo</button>':''}`;t._undo=undo;t._x2=x2&&x2.fn;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>{t.classList.remove('on');t._undo=null},undo?5000:2200)}
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const el=e.target.closest('[data-act],[data-add],[data-edit],[data-go],.tabs a');if(!el)return;
@@ -864,6 +1005,20 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-act],[dat
  if(a==='esize'){$('#eml').value=el.dataset.v;$('#eml').oninput();return}
  if(a==='mlq'){const i=$('#eml');if(!i)return;let v=+i.value||0;v=el.dataset.v==='half'?v/2:el.dataset.v==='+'?v*1.25:v*.8;i.value=Math.max(10,Math.min(2000,Math.round(v)));i.oninput&&i.oninput();return}
  if(a==='allDrinks'){allDrinks();return}
+ if(a==='toastx'){const t=$('#toast'),f=t._x2;t._x2=null;t.classList.remove('on');if(f)f();return}
+ if(a==='tag'){setTag(el.dataset.g,el.dataset.v);const sm=el.closest('details')&&el.closest('details').querySelector('summary');if(sm&&tagTarget)sm.textContent='Context'+(tagTxt(tagTarget)?': '+tagTxt(tagTarget):' (optional)');return}
+ if(a==='morning'){const m=morningDue();if(m)morningSheet(m);return}
+ if(a==='mfeel'&&mDraft){mDraft.feel=el.dataset.v;for(const b of el.parentNode.children)b.setAttribute('aria-pressed',b===el);const sv=$('#sheet [data-act="msave"]');if(sv)sv.disabled=false;return}
+ if(a==='msleep'&&mDraft){mDraft.sleep=mDraft.sleep===el.dataset.v?null:el.dataset.v;for(const b of el.parentNode.children)b.setAttribute('aria-pressed',b.dataset.v===mDraft.sleep);return}
+ if(a==='msave'&&mDraft&&mDraft.feel){const m=mDraft;mDraft=null;S.events.push({id:uid(),t:now(),type:'morning',day:m.day,feel:m.feel,sleep:m.sleep,u:now()});closeSheet();commit();toast(m.feel==='great'||m.feel==='ok'?'Noted. Good mornings count too.':'Noted. Lotl will remember how last night landed.');play(m.feel==='great'?'hop':m.feel==='ok'?'wave':'sigh',true);return}
+ if(a==='mskip'&&mDraft){const m=mDraft;mDraft=null;S.events.push({id:uid(),t:now(),type:'morning',day:m.day,skip:true,u:now()});closeSheet();commit();return}
+ if(a==='review'){const w=reviewDue();if(w!=null)reviewSheet(w);return}
+ if(a==='reviewAny'){const w=reviewWeek();reviewSheet(w!=null?w:addDays(weekStart(now()),-7));return}
+ if(a==='rvGoal'&&rvDraft){rvDraft.sel=+el.dataset.i;for(const b of el.parentNode.querySelectorAll('button'))b.setAttribute('aria-pressed',b===el);const o=$('#rvOwn');if(o)o.value='';return}
+ if(a==='rvSave'&&rvDraft){const own=($('#rvOwn')||{}).value;const g=own&&own.trim()?{k:'own',text:own.trim().slice(0,60)}:rvDraft.sel!=null?rvDraft.opts[rvDraft.sel]:null;if(!g){toast('Pick a goal or write one.');return}saveReview(g);return}
+ if(a==='rvSkip'&&rvDraft){saveReview(null);return}
+ if(a==='addNote'){const ta=$('#noteNew'),v=ta&&ta.value.trim().slice(0,160);if(!v){toast('Write the note first.');return}ta.value='';ta.blur();st.notes=[...(st.notes||[]),v].slice(0,6);st.u=now();commit();toast('Saved. Future you will see it.');return}
+ if(a==='rmNote'){st.notes=(st.notes||[]).filter((_,i)=>i!==+el.dataset.i);st.u=now();commit();return}
  if(a==='lotlTap'){lotlTap();return}
  if(a==='delDrink'){const x=S.drinks.find(d=>d.id===$('#sheet').dataset.edit);if(x){closeSheet();delWithUndo(x)}return}
  if(a==='pauseRide'){const d=pending;closeSheet();calm.from=d;go('calm');setTimeout(()=>startCalm(),350);return}

@@ -38,9 +38,13 @@ Any static host works: GitHub Pages, Netlify, Vercel or Cloudflare Pages. Upload
 - **THC drinks:** logged in mg (`kind:'thc'`, `mg`), shown in the day log, history and a weekly THC total, but excluded from standard drinks, limits, dry days and the liver view (`D()` is alcohol only; `TH()` is THC only).
 - **Home:** most of the screen is Lotl's tank. Lotl idles, blinks and swims, and does small random things (chases a bubble, flips, naps, waves). Tap Lotl for a reaction. The water tints as the week fills, and Lotl gets slower and sleepier when you're over. Dry days, streak milestones and an under-plan week get a small celebration once. Everything respects Reduce Motion.
 - **Logging and editing:** one horizontal row of drinks sorted by how often you use them, plus "All". Every logged drink has a pencil; tap to edit (with Half, − and + for size), swipe left to delete with undo.
+- **Morning check-in:** the first time you open Ebb after a drinking day, Lotl asks how you feel (great, okay, rough, awful) and, optionally, how you slept. Week shows how many drinks came before good and rough mornings.
+- **Trigger tags:** after logging, tap Tag (or edit a drink) to add where, who with and mood. Optional. Week shows your top triggers from the last 4 weeks.
+- **Notes to future you:** write up to six in Plan. The pause sheet shows one, rotating, when you're about to go over.
+- **Weekly review:** from Sunday noon (or Monday and Tuesday for the week just gone), a card on home opens a recap: week vs plan, dry days, days over your daily limit, calories, liver load trend, top triggers and mornings. Pick one goal; it shows on home all next week. Also reachable from Week.
 - **Clear drink log:** in Plan, hold to clear logged drinks, nights and urges while keeping your plan, limits, custom drinks and settings.
 - **Updates:** the service worker fetches pages fresh when online and only falls back to the cache offline, so a new push shows up on the next open.
-- **Data model** (`S` in the script): `settings`, `custom` drinks, `drinks`, `events` (urges ridden out, swaps), `nights`. Every record has an id and an update time `u`; deletes are tombstones, and merging takes the newer record per id. On claude.ai it is stored as one `main` document plus one document per month (`m2026-11`).
+- **Data model** (`S` in the script): `settings`, `custom` drinks, `drinks` (with optional `tags` {where, who, mood}), `events` (urges ridden out, swaps, morning check-ins, weekly reviews with goals), `nights`. Every record has an id and an update time `u`; deletes are tombstones, and merging takes the newer record per id. On claude.ai it is stored as one `main` document plus one document per month (`m2026-11`).
 
 ## Moving to native SwiftUI later
 
